@@ -99,3 +99,39 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+<!-- =========================================================================
+     掲示板セクションのみの独立ファイル (指定サイズ: 350px × 579px)
+     ========================================================================= -->
+<section id="news-section" class="news-section">
+  
+  <!-- 見出しエリア (news-heading) -->
+  <div class="news-heading">
+    <!-- ピンクの三角フラッグ（棒つき） (news-frag) -->
+    <span class="news-frag"></span>
+    <!-- 見出しテキスト 36px (news-headingtext) -->
+    <h2 class="news-headingtext">掲示板</h2>
+  </div>
+
+  <!-- 📸 掲示板画像 (news-image) -->
+  <!-- 画像の差し替えはここを変更するだけで一瞬で完了します -->
+  <img class="news-image" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=600" alt="アカペラ練習風景のイラスト">
+
+  <!-- 📝 掲示板テキスト (news-text) -->
+  <div class="news-text">
+    7月3日に大学にて大学祭開催<br>
+    締め切りは6月30日までです
+  </div>
+
+  <!-- もっと見るボタンコンテナ -->
+  <div class="more-button-container">
+    <button id="more-button" class="more-button">
+      <!-- ボタンテキスト (button-text) -->
+      <span class="button-text">もっと見る</span>
+      <!-- ボタン右側の白丸 (button-circle) -->
+      <span class="button-circle">
+        <i data-lucide="chevron-down" class="button-arrow"></i>
+      </span>
+    </button>
+  </div>
+</section>
