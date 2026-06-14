@@ -1,0 +1,20 @@
+/* 横スクロールの防止 */
+body {
+  overflow-x: hidden;
+}
+
+/* 木漏れ日の揺らぎアニメーション */
+@keyframes komorebi {
+  0%, 100% { 
+    opacity: 0.15; 
+    transform: scale(1) translateY(0); 
+  }
+  50% { 
+    opacity: 0.45; 
+    transform: scale(1.06) translateY(-8px); 
+  }
+}
+
+.komorebi-bg {
+  animation: komorebi 12s ease-in-out infinite;
+}
