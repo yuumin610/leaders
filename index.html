@@ -5,111 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>アカペラの森 - Top</title>
   
-  <!-- Tailwind CSS (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
   <!-- Google Fonts: 優しい丸ゴシック 'Zen Maru Gothic' -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
   
-  <!-- Lucide Icons -->
+  <!-- Lucide Icons (アイコンフォントの読み込み) -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
-  <!-- 外部CSSの読み込み -->
+  <!-- 全てのデザインを担当するCSS -->
   <link rel="stylesheet" href="style.css">
-  
-  <script>
-    // Tailwind CSSの設定
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Zen Maru Gothic"', 'sans-serif'],
-          },
-          colors: {
-            forest: {
-              800: '#385517',
-            },
-            menuBrown: '#422C1D', // MENUボタン用の焦げ茶色
-          }
-        }
-      }
-    }
-  </script>
 </head>
-<body class="bg-stone-100 min-h-screen flex items-center justify-center font-sans antialiased">
+<body class="body-layout">
 
-  <!-- PCビュー時の簡易的なテーブル背景 -->
-  <div class="absolute inset-0 bg-cover bg-center filter blur-md opacity-25 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200');"></div>
+  <!-- PC表示用のぼかしテーブル背景 -->
+  <div class="pc-bg-image"></div>
 
-  <!-- メインコンテナ：スマートフォン実寸幅 390px / Top高さ 847px -->
-  <main class="relative w-[390px] h-[847px] bg-white shadow-2xl rounded-[40px] overflow-hidden border border-stone-200/50 z-10">
+  <!-- メインコンテナ：幅 390px / 高さ 847px 固定 -->
+  <main class="main-container">
 
     <!-- ==========================================
-         ヘッダー / メインビジュアル (390px × 847px)
+         ヘッダー / メインビジュアル
          ========================================== -->
-    <header class="relative w-full h-full flex flex-col justify-between items-center text-center p-6 overflow-hidden">
-      <!-- メイン背景: Topbg.png (index.htmlと同じフォルダにTopbg.pngを置いてください) -->
-      <div class="absolute inset-0 bg-[#EAF5E9] bg-cover bg-bottom transition-transform duration-1000 transform scale-100" 
-           style="background-image: url('Topbg.png'), url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800');"></div>
+    <header class="top-header">
+      <!-- メイン背景画像 -->
+      <div class="top-bg-image"></div>
       
-      <!-- オーバーレイ光彩レイヤー -->
-      <div class="absolute inset-0 bg-white/5"></div>
-      <div class="absolute inset-0 bg-yellow-100/10 komorebi-bg mix-blend-overlay"></div>
+      <!-- やわらかな光のレイヤーと木漏れ日エフェクト -->
+      <div class="light-filter"></div>
+      <div class="komorebi-bg"></div>
 
       <!-- MENUボタン -->
-      <div class="w-full flex justify-end z-30 pt-3 pr-2">
-        <button id="menu-btn" class="w-[52px] h-[52px] rounded-full bg-menuBrown text-white flex flex-col items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-white/20">
-          <!-- MENU用並行線 -->
-          <div class="flex flex-col gap-[3px] mb-[2px] mt-[4px]">
-            <span class="w-5 h-[1.5px] bg-white rounded-full"></span>
-            <span class="w-5 h-[1.5px] bg-white rounded-full"></span>
+      <div class="menu-container">
+        <button id="menu-btn" class="menu-btn">
+          <!-- 白い2本線 -->
+          <div class="menu-btn-lines">
+            <span class="line"></span>
+            <span class="line"></span>
           </div>
-          <!-- MENU テキスト -->
-          <span class="text-[8px] font-bold tracking-widest scale-90">MENU</span>
+          <!-- MENUテキスト -->
+          <span class="menu-btn-text">MENU</span>
         </button>
       </div>
 
       <!-- コピー＆タイトル -->
-      <div class="z-10 mt-32 flex flex-col items-center gap-7 px-4">
-        <h1 class="text-[38px] font-black tracking-widest text-[#422C1D] select-none leading-none drop-shadow-sm">
-          アカペラの森
-        </h1>
-        <p class="text-[13px] font-medium text-stone-600 leading-relaxed tracking-[0.15em]">
+      <div class="header-content">
+        <h1 class="main-title">アカペラの森</h1>
+        <p class="sub-title">
           楽しいサークルLifeを<br>
           始めたいあなたに
         </p>
       </div>
 
-      <!-- 下部へのインジケータ -->
-      <div class="z-10 w-full mb-10 flex flex-col items-center">
-        <div class="animate-bounce bg-white/90 p-2.5 rounded-full shadow-md backdrop-blur-sm cursor-pointer hover:bg-white transition">
-          <i data-lucide="chevron-down" class="w-4 h-4 text-forest-800"></i>
+      <!-- 下部へのインジケータ（下矢印） -->
+      <div class="indicator-container">
+        <div class="scroll-arrow">
+          <i data-lucide="chevron-down" class="arrow-icon"></i>
         </div>
       </div>
     </header>
 
     <!-- ==========================================
-         ナビゲーションドロワーメニュー (隠しメニュー)
+         ナビゲーションドロワーメニュー (初期状態は非表示)
          ========================================== -->
-    <div id="navigation-menu" class="absolute inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-6">
-      <div class="bg-white w-full max-w-[300px] rounded-[32px] overflow-hidden shadow-2xl flex flex-col transform scale-95 transition-transform duration-300 border border-emerald-100">
-        <div class="bg-emerald-50 px-6 py-5 flex justify-between items-center border-b border-emerald-100">
-          <h3 class="font-bold text-sm text-[#422C1D] flex items-center gap-1.5">
-            <i data-lucide="compass" class="w-4 h-4 text-emerald-700"></i> メニュー
+    <div id="navigation-menu" class="navigation-menu">
+      <div class="menu-modal">
+        <!-- ドロワーのヘッダー部 -->
+        <div class="menu-modal-header">
+          <h3 class="menu-modal-title">
+            <i data-lucide="compass" class="title-icon"></i> メニュー
           </h3>
-          <button id="menu-close-btn" class="text-stone-400 hover:text-stone-600 p-1 rounded-full hover:bg-stone-100 transition">
-            <i data-lucide="x" class="w-5 h-5"></i>
+          <button id="menu-close-btn" class="close-btn">
+            <i data-lucide="x" class="close-icon"></i>
           </button>
         </div>
         
-        <div class="p-6 flex flex-col gap-3">
-          <div class="text-left py-2 px-4 text-[#422C1D] font-bold text-xs cursor-pointer hover:bg-stone-50 rounded-lg">サークル紹介</div>
-          <div class="text-left py-2 px-4 text-[#422C1D] font-bold text-xs cursor-pointer hover:bg-stone-50 rounded-lg">初めての方へ</div>
-          <div class="text-left py-2 px-4 text-[#422C1D] font-bold text-xs cursor-pointer hover:bg-stone-50 rounded-lg">活動日程</div>
-          <hr class="border-stone-100 my-1">
-          <button id="menu-bottom-close-btn" class="w-full py-3 px-4 rounded-2xl bg-emerald-700 text-white font-bold text-xs shadow-md active:scale-[0.98] transition">
+        <!-- ドロワーの中身（リンク） -->
+        <div class="menu-modal-body">
+          <div class="menu-item">サークル紹介</div>
+          <div class="menu-item">初めての方へ</div>
+          <div class="menu-item">活動日程</div>
+          <hr class="menu-divider">
+          <button id="menu-bottom-close-btn" class="menu-bottom-close-btn">
             閉じる
           </button>
         </div>

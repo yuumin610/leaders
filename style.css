@@ -1,20 +1,388 @@
-/* 横スクロールの防止 */
+/* ==========================================
+   1. ベースのスタイル設定
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  font-family: "Zen Maru Gothic", sans-serif;
+  color: #292524; /* stone-800 */
+}
+
+/* 開発時に中央にスマホ画面を浮かび上がらせるレイアウト */
+.body-layout {
+  background-color: #f5f5f4; /* stone-100 */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* PCビュー時のぼかしテーブル背景 */
+.pc-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* ==========================================
+   2. スマホメインフレーム (390px × 847px)
+   ========================================== */
+.main-container {
+  position: relative;
+  width: 390px;
+  height: 847px;
+  background-color: #ffffff;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+  border-radius: 40px;
+  overflow: hidden;
+  border: 1px solid rgba(231, 229, 228, 0.5); /* border-stone-200/50 */
+  z-index: 10;
+}
+
+/* ==========================================
+   3. ヘッダー / トップビジュアル
+   ========================================== */
+.top-header {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+/* 背景画像 (同じ階層の Topbg.png を読み込みます) */
+.top-bg-image {
+  position: absolute;
+  inset: 0;
+  background-color: #e8f5e9;
+  background-image: url('Topbg.png'), url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800');
+  background-size: cover;
+  background-position: bottom;
+  transition: transform 1s ease-in-out;
+}
+
+.top-header:hover .top-bg-image {
+  transform: scale(1.02); /* マウスホバー時に少しだけ背景が奥に動く演出 */
+}
+
+/* 陽だまりフィルター */
+.light-filter {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
 }
 
 /* 木漏れ日の揺らぎアニメーション */
 @keyframes komorebi {
-  0%, 100% { 
-    opacity: 0.15; 
-    transform: scale(1) translateY(0); 
-  }
-  50% { 
-    opacity: 0.45; 
-    transform: scale(1.06) translateY(-8px); 
-  }
+  0%, 100% { opacity: 0.15; transform: scale(1) translateY(0); }
+  50% { opacity: 0.45; transform: scale(1.06) translateY(-8px); }
 }
 
 .komorebi-bg {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(254, 243, 199, 0.1); /* yellow-50/10 */
   animation: komorebi 12s ease-in-out infinite;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ==========================================
+   4. MENUボタン
+   ========================================== --> */
+.menu-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 30;
+  padding-top: 12px;
+  padding-right: 8px;
+}
+
+.menu-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #422C1D; /* menuBrown */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.menu-btn:hover {
+  transform: scale(1.05);
+}
+
+.menu-btn:active {
+  transform: scale(0.95);
+}
+
+/* MENUボタンの中の白い2本線 */
+.menu-btn-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 2px;
+  margin-top: 4px;
+}
+
+.menu-btn-lines .line {
+  width: 20px;
+  height: 1.5px;
+  background-color: #ffffff;
+  border-radius: 9999px;
+}
+
+.menu-btn-text {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  transform: scale(0.9);
+}
+
+/* ==========================================
+   5. メインタイトル ＆ キャッチコピー
+   ========================================== */
+.header-content {
+  z-index: 10;
+  margin-top: 128px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.main-title {
+  font-size: 38px;
+  font-weight: 900; /* font-black */
+  letter-spacing: 0.15em;
+  color: #422C1D; /* 深い焦げ茶色 */
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 28px;
+  user-select: none;
+}
+
+.sub-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #57534e; /* stone-600 */
+  line-height: 1.625; /* leading-relaxed */
+  letter-spacing: 0.15em;
+}
+
+/* ==========================================
+   6. 下部への矢印インジケータ
+   ========================================== */
+.indicator-container {
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.scroll-arrow {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-arrow:hover {
+  background-color: #ffffff;
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  color: #4e7524; /* forest-700 */
+}
+
+/* フワフワ上下に跳ねるアニメーション */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* ==========================================
+   7. ナビゲーションメニュー (ドロワー)
+   ========================================== */
+.navigation-menu {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 24px;
+  padding-right: 24px;
+  
+  /* 初期状態は非表示（透明化＆操作無効） */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* メニュー表示中のアクティブクラス */
+.navigation-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-modal {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #d2e6bb; /* forest-200 */
+  
+  /* アニメーション用の初期サイズ */
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navigation-menu.open .menu-modal {
+  transform: scale(1);
+}
+
+/* メニューのヘッダー */
+.menu-modal-header {
+  background-color: #f5f9f0; /* forest-50 */
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e8f2dc; /* forest-100 */
+}
+
+.menu-modal-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #422C1D;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.title-icon {
+  width: 16px;
+  height: 16px;
+  color: #4e7524;
+}
+
+.close-btn {
+  color: #a8a29e; /* stone-400 */
+  padding: 4px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background-color: #f5f5f4;
+  color: #57534e;
+}
+
+.close-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* メニューの選択項目 */
+.menu-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu-item {
+  text-align: left;
+  padding: 10px 16px;
+  border-radius: 12px;
+  color: #422C1D;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #f5f9f0;
+  color: #385517; /* forest-800 */
+}
+
+.menu-divider {
+  border: none;
+  border-top: 1px solid #f5f5f4;
+  margin: 4px 0;
+}
+
+/* 閉じるアクションボタン */
+.menu-bottom-close-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background-color: #4e7524; /* forest-700 */
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s, transform 0.1s;
+  outline: none;
+}
+
+.menu-bottom-close-btn:hover {
+  background-color: #385517;
+}
+
+.menu-bottom-close-btn:active {
+  transform: scale(0.98);
 }

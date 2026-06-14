@@ -1,40 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Lucideアイコンを初期化
+  // 1. Lucideアイコンを初期化して、HTML内の「data-lucide」属性のアイコンを描画
   if (window.lucide) {
     window.lucide.createIcons();
   }
 
-  // 要素を取得
+  // 2. 必要なHTML要素を変数として取得
   const menuBtn = document.getElementById("menu-btn");
   const menuCloseBtn = document.getElementById("menu-close-btn");
   const menuBottomCloseBtn = document.getElementById("menu-bottom-close-btn");
   const navigationMenu = document.getElementById("navigation-menu");
 
-  // メニューを開く関数
+  // 3. メニューを開く処理 (CSSで設計した .open クラスを追加する)
   function openMenu() {
     if (navigationMenu) {
-      navigationMenu.classList.remove("opacity-0", "pointer-events-none");
-      const content = navigationMenu.querySelector(".transform");
-      if (content) {
-        content.classList.remove("scale-95");
-        content.classList.add("scale-100");
-      }
+      navigationMenu.classList.add("open");
     }
   }
 
-  // メニューを閉じる関数
+  // 4. メニューを閉じる処理 (CSSの .open クラスを削除する)
   function closeMenu() {
     if (navigationMenu) {
-      navigationMenu.classList.add("opacity-0", "pointer-events-none");
-      const content = navigationMenu.querySelector(".transform");
-      if (content) {
-        content.classList.remove("scale-100");
-        content.classList.add("scale-95");
-      }
+      navigationMenu.classList.remove("open");
     }
   }
 
-  // 各種ボタンへイベントリスナーを設定
+  // 5. 各種ボタンをクリックしたときに実行する関数を紐づけ (EventListener)
   if (menuBtn) {
     menuBtn.addEventListener("click", openMenu);
   }
