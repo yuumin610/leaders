@@ -281,25 +281,18 @@ body {
   overflow: hidden;
 }
 
-.guide-heading__frag-wrap {
+.guide-heading__frag {
   position: absolute;
-  left: 10px;
-  top: 43px;
+  left: 12px;
+  top: 32px;
   width: 28.644px;
-  height: 24.058px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 38px;
 }
-
-.guide-heading__frag-inner { transform: rotate(90.06deg) skewX(-1deg); }
-
-.guide-heading__line { position: absolute; left: 17px; top: 47px; }
 
 .guide-heading__title {
   position: absolute;
-  left: 47px;
-  top: 37px;
+  left: 54px;
+  top: 31px;
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 600;
   font-size: 36px;
@@ -336,7 +329,7 @@ body {
 .try-btn {
   position: absolute;
   left: 107px;
-  top: 657px;
+  top: 625px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -361,6 +354,7 @@ body {
   height: 1287px;
   overflow: hidden;
   border-top-left-radius: 30px;
+  margin-top: -30px;
 }
 
 .s-schedule__bg-wrap {
@@ -507,7 +501,7 @@ body {
   position: absolute;
   left: 53px; top: 120px;
   width: 281px; height: 93px;
-  background: #f8faf7;
+  background: #c5c5c5;
   border-radius: 140px;
   display: flex;
   align-items: center;
