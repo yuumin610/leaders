@@ -1,549 +1,1486 @@
 /* ==========================================
-   1. ベースのスタイル設定
-   ========================================== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+       1. ベース of スタイル設定 (Tailwindなし)
+       ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  font-family: "Zen Maru Gothic", sans-serif;
-  color: #292524; /* stone-800 */
-}
-
-/* 画面中央にスマホ画面を浮かび上がらせるPCビュー用のレイアウト */
-.body-layout {
-  background-color: #f5f5f4; /* stone-100 */
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* PCビュー用のぼかし背景 */
-.pc-bg-image {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200');
-  background-size: cover;
-  background-position: center;
-  filter: blur(8px);
-  opacity: 0.25;
-  pointer-events: none;
-}
-
+    body {
+      background-color: #ffffff;
+      overflow-x: hidden;
+      font-family: "Zen Maru Gothic", sans-serif;
+      color: #422C1D; /* カンプ指定の焦げ茶色 */
+    }
 /* ==========================================
-   2. スマホフレーム (角丸を完全に排除)
-   ========================================== */
-.main-container {
-  position: relative;
-  width: 390px;
-  height: 92vh; /* 枠の中で縦スクロールできる仕様 */
-  background-color: #ffffff;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  border-radius: 0px; /* 角を丸くしないシャープな直角デザイン */
-  overflow-y: auto;
-  overflow-x: hidden;
-  border: 1px solid rgba(231, 229, 228, 0.5);
-  z-index: 10;
-  scroll-behavior: smooth;
-}
+       2. スマホメインフレーム
+       ========================================== */
+    .main-container {
+      position: relative;
+      width: 100%;
+      max-width: 390px;
+      margin: 0 auto;
+      min-height: 100vh; /* 本番公開ではページ全体を自然にスクロールさせます */
+      background-color: #ffffff;
+      box-shadow: none;
+      border-radius: 0px; /* 背景の角を丸くしないよう直角に変更しました */
+      overflow-y: visible;
+      overflow-x: hidden;
+      border: none;
+      z-index: 10;
+      scroll-behavior: smooth;
+    }
 
-/* スマホ枠内のスクロールバーを非表示にする設定 */
-.main-container::-webkit-scrollbar {
-  display: none;
-}
-.main-container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+    /* スマホ枠内のスクロールバーを非表示にする設定 */
+    .main-container::-webkit-scrollbar {
+      display: none;
+    }
+    .main-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 
-/* ==========================================
-   3. ヘッダー / トップビジュアル (390px × 847px)
-   ========================================== */
-.top-header {
-  position: relative;
-  width: 100%;
-  height: 847px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  padding: 24px;
-  overflow: hidden;
-}
+    /* ==========================================
+       3. ヘッダー / トップビジュアル (390px × 847px)
+       ========================================== */
+    .top-header {
+      position: relative;
+      width: 100%;
+      min-height: 847px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+      overflow: hidden;
+      z-index: 1; /* 重なり順を下にして、次のセクションが覆い被さるようにします */
+      background-color: #ffffff;
+      /* 立体効果のための透視投影空間（3D）を作成 */
+      perspective: 1000px;
+    }
 
-/* 背景画像（Topbg.pngを優先して読み込み、なければUnsplashの森を読み込み） */
-.top-bg-image {
-  position: absolute;
-  inset: 0;
-  background-color: #e8f5e9;
-  background-image: url('Topbg.png'), url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800');
-  background-size: cover;
-  background-position: bottom;
-  transition: transform 1.2s ease-in-out;
-}
+    /* 【異世界 3D ズーム背景のCSS設定】 */
+    .top-bg-image {
+      position: absolute;
+      inset: 0;
+      background-image: url('Topbg.png'), url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800');
+      background-size: cover;
+      background-position: bottom;
+      transform-origin: center bottom; /* 森の奥深く（やや下寄り）をズームの中心にします */
+      will-change: transform, filter;
+      z-index: 1;
+    }
 
-.top-header:hover .top-bg-image {
-  transform: scale(1.03);
-}
+    /* 夢幻的な空気を醸し出すエメラルドとオーロラの霧レイヤー */
+    .sky-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0) 10%, rgba(51, 173, 139, 0.15) 50%, rgba(244, 143, 177, 0.15) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
 
-.light-filter {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  pointer-events: none;
-}
+    .light-filter {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.05);
+      pointer-events: none;
+      z-index: 3;
+    }
 
-/* 木漏れ日の揺らぎアニメーション */
-@keyframes komorebi {
-  0%, 100% { opacity: 0.15; transform: scale(1) translateY(0); }
-  50% { opacity: 0.45; transform: scale(1.06) translateY(-8px); }
-}
+    /* 木漏れ日の揺らぎアニメーション */
+    @keyframes komorebi {
+      0%, 100% { opacity: 0.15; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.06); }
+    }
 
-.komorebi-bg {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(254, 243, 199, 0.1);
-  animation: komorebi 12s ease-in-out infinite;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
+    .komorebi-bg {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(254, 243, 199, 0.1);
+      animation: komorebi 12s ease-in-out infinite;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 4;
+    }
 
-/* MENUボタン */
-.menu-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 30;
-  padding-top: 12px;
-  padding-right: 8px;
-}
+    /* 【幻想的な光の粒子・胞子レイヤー】
+       それぞれ深さが違う3D位置に配置します
+    */
+    .magical-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
 
-.menu-btn {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background-color: #422C1D; /* menuBrown */
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  outline: none;
-}
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform, opacity;
+      transform-origin: center center;
+    }
 
-.menu-btn:hover {
-  transform: scale(1.05);
-}
+    /* 【手前をかすめる大きなボケ葉レイヤー】
+       茂みをかき分けて進むときの奥行きを、超広角な周辺ボケでシミュレートします
+    */
+    .foreground-leaves {
+      position: absolute;
+      inset: -50px;
+      /* 画面四隅に配置された大きくぼやけた新緑の影 */
+      background: radial-gradient(circle, transparent 40%, rgba(15, 46, 27, 0.45) 100%);
+      pointer-events: none;
+      z-index: 15;
+      will-change: transform, opacity, filter;
+      transform-origin: center center;
+    }
 
-.menu-btn:active {
-  transform: scale(0.95);
-}
+    /* MENUボタンコンテナ */
+    .menu-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 30; /* ホワイトアウト(35)の背後に配置して一緒に真っ白にします */
+      padding-top: 12px;
+      padding-right: 8px;
+    }
 
-.menu-btn-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-bottom: 2px;
-  margin-top: 4px;
-}
+    .menu-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: #422C1D; /* menuBrown */
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      outline: none;
+    }
 
-.menu-btn-lines .line {
-  width: 20px;
-  height: 1.5px;
-  background-color: #ffffff;
-  border-radius: 9999px;
-}
+    .menu-btn:hover {
+      transform: scale(1.05);
+    }
 
-.menu-btn-text {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  transform: scale(0.9);
-}
+    .menu-btn:active {
+      transform: scale(0.95);
+    }
 
-/* タイトルとキャッチコピー */
-.header-content {
-  z-index: 10;
-  margin-top: 128px;
-  padding-left: 16px;
-  padding-right: 16px;
-}
+    .menu-btn-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 2px;
+      margin-top: 4px;
+    }
 
-.main-title {
-  font-size: 38px;
-  font-weight: 900;
-  letter-spacing: 0.15em;
-  color: #422C1D;
-  line-height: 1;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  margin-bottom: 28px;
-  user-select: none;
-}
+    .menu-btn-lines .line {
+      width: 20px;
+      height: 1.5px;
+      background-color: #ffffff;
+      border-radius: 9999px;
+    }
 
-.sub-title {
-  font-size: 13px;
-  font-weight: 500;
-  color: #57534e; /* stone-600 */
-  line-height: 1.625;
-  letter-spacing: 0.15em;
-}
+    .menu-btn-text {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      transform: scale(0.9);
+    }
 
-/* 下部スクロールボタン */
-.indicator-container {
-  width: 100%;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-}
+    /* 【タイトルエリア：手前にすり抜ける設定】
+       スクロール時にJSで scale(拡大) と opacity(薄くなる) をリアルタイム連動させます。
+    */
+    .header-content {
+      position: relative;
+      z-index: 10;
+      margin-top: 128px;
+      padding-left: 16px;
+      padding-right: 16px;
+      will-change: transform, opacity;
+    }
 
-.scroll-arrow {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: none;
-  padding: 10px;
-  border-radius: 50%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-}
+    .main-title {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: #422C1D;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      margin-bottom: 28px;
+      user-select: none;
+    }
 
-.scroll-arrow:hover {
-  background-color: #ffffff;
-}
+    .sub-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #57534e; /* stone-600 */
+      line-height: 1.625;
+      letter-spacing: 0.15em;
+    }
 
-.arrow-icon {
-  width: 16px;
-  height: 16px;
-  color: #4e7524; /* forest-700 */
-}
+    /* 下部スクロールボタン */
+    .indicator-container {
+      width: 100%;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      will-change: opacity;
+    }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
+    .scroll-arrow {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.scroll-arrow {
-  animation: bounce 2.5s infinite;
-}
+    .scroll-arrow:hover {
+      background-color: #ffffff;
+    }
 
-/* ==========================================
-   4. 掲示板セクション (指定サイズ: 350px × 579px)
-   ========================================== */
-.news-section {
-  width: 350px;
-  height: 579px;
-  margin: 40px auto; /* フレーム内中央配置 */
-  background-color: #FFF4F4; /* 薄ピンク背景 */
-  border-radius: 0px; /* 角を丸くしない直角デザイン */
-  border: 1px solid #FFECEC;
-  padding: 36px 20px 32px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  box-sizing: border-box;
-  flex-shrink: 0;
-}
+    .arrow-icon {
+      width: 16px;
+      height: 16px;
+      color: #4e7524; /* forest-700 */
+    }
 
-/* 見出しエリア (news-heading) */
-.news-heading {
-  display: flex;
-  align-items: flex-end; /* テキストの下端に揃える */
-  align-self: flex-start;
-  width: 100%;
-  margin-bottom: 24px;
-  padding-left: 4px;
-}
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
 
-/* ピンクの三角フラッグ（棒つき再現） (news-frag) */
-.news-frag {
-  position: relative;
-  width: 24px;
-  height: 42px; /* 縦棒の長さを含んだ全体の高さ */
-  margin-right: 6px;
-  display: inline-block;
-  flex-shrink: 0;
-}
+    .scroll-arrow {
+      animation: bounce 2.5s infinite;
+    }
 
-/* 疑似要素：フラッグの茶色の持ち手棒 */
-.news-frag::before {
-  content: "";
-  position: absolute;
-  left: 2px;
-  bottom: 0;
-  width: 2.5px;
-  height: 38px;
-  background-color: #422C1D; /* 焦げ茶色 */
-  border-radius: 1px;
-}
+    /* 【一瞬白くなる光彩ワープ用オーバーレイ】
+       中心から周囲に向かって強いホワイトアウトのブルーム光が膨張するように
+       放射状グラデーション（円形）を重ね合わせます。
+    */
+    #whiteout-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%);
+      background-color: #ffffff; /* フォールバック用のソリッドホワイト */
+      background-blend-mode: normal;
+      pointer-events: none;
+      z-index: 35;
+      opacity: 0;
+      will-change: opacity, transform;
+      transform-origin: center center;
+    }
 
-/* 疑似要素：フラッグのピンクの三角旗 */
-.news-frag::after {
-  content: "";
-  position: absolute;
-  left: 4.5px;
-  top: 4px;
-  width: 0;
-  height: 0;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 13px solid #E57373;
-}
+    /* ==========================================
+       共通コンポーネント
+       ========================================== */
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 24px;
+      padding-left: 4px;
+    }
 
-/* 掲示板見出しテキスト (news-headingtext) */
-.news-headingtext {
-  font-size: 36px; /* フォントサイズ 36px */
-  font-weight: 700;
-  color: #422C1D;
-  letter-spacing: 0.05em;
-  line-height: 1.1;
-}
+    .section-frag {
+      position: relative;
+      width: 24px;
+      height: 42px;
+      margin-right: 6px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
 
-/* 掲示板画像 (news-image) */
-.news-image {
-  width: 100%;
-  height: 196px;
-  object-fit: cover;
-  border-radius: 20px; /* カード内部の画像はやさしい角丸をキープ */
-  border: 3px solid #422C1D; /* 太めの焦げ茶ふち線 */
-  box-shadow: 0 4px 10px rgba(66, 44, 29, 0.08);
-  margin-bottom: 24px;
-}
+    .section-frag::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      bottom: 0;
+      width: 2.5px;
+      height: 38px;
+      background-color: #422C1D;
+      border-radius: 1px;
+    }
 
-/* 掲示板テキスト (news-text) */
-.news-text {
-  font-size: 13px;
-  font-weight: 700;
-  color: #422C1D;
-  line-height: 1.8;
-  text-align: center;
-  letter-spacing: 0.03em;
-}
+    .section-frag::after {
+      content: "";
+      position: absolute;
+      left: 4.5px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 13px solid #E57373;
+    }
 
-/* もっと見るボタンコンテナ (more-button-container) */
-.more-button-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end; /* 画像とピッタリ揃う右寄せ */
-  margin-top: 32px; /* カンプ同様テキストから適度な位置に持ち上げ */
-}
+    .section-headingtext {
+      font-size: 36px;
+      font-weight: 700;
+      color: #422C1D;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
 
-/* もっと見るボタン (more-button) */
-.more-button {
-  background-color: #113D24; /* カンプデザインの深緑色 */
-  border: none;
-  border-radius: 9999px;
-  padding: 6px 6px 6px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-  width: 154px;
-  box-shadow: 0 4px 6px rgba(17, 61, 36, 0.15);
-  outline: none;
-}
+    /* ==========================================
+       4. 掲示板セクション (指定サイズ: 350px × 579px)
+       ========================================== */
+    .news-section {
+      width: 350px;
+      height: 579px;
+      margin: 40px auto; /* 390px幅フレームの中央に配置されます */
+      background-color: #FFF4F4; /* カンプを再現した薄ピンク */
+      border-radius: 0px; /* 掲示板背景の角丸を直角に変更しました */
+      border: 1px solid #FFECEC;
+      padding: 36px 20px 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      z-index: 2; /* トップヘッダー(1)より高くして、上に重なりながら上がってくるようにします */
+    }
 
-.more-button:hover {
-  background-color: #0b2d1a;
-}
+    /* 見出しエリア (section-heading) */
+    .section-heading {
+      display: flex;
+      align-items: flex-end; /* テキストの下端に揃える */
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 24px;
+      padding-left: 4px;
+    }
 
-.more-button:active {
-  transform: scale(0.97);
-}
+    /* ピンクの三角フラッグ（棒つき再現） (section-frag) */
+    .section-frag {
+      position: relative;
+      width: 24px;
+      height: 42px; /* 縦棒の長さを含んだ全体の高さ */
+      margin-right: 6px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
 
-/* ボタンテキスト (button-text) */
-.button-text {
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.05em;
-  line-height: 1;
-}
+    /* フラッグの茶色の持ち手棒 */
+    .section-frag::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      bottom: 0;
+      width: 2.5px;
+      height: 38px; /* 持ち手の縦棒 of 長さ */
+      background-color: #422C1D; /* 焦げ茶色 */
+      border-radius: 1px;
+    }
 
-/* ボタン右側の白丸 (button-circle) */
-.button-circle {
-  width: 24px;
-  height: 24px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-}
+    /* フラッグのピンクの三角旗 */
+    .section-frag::after {
+      content: "";
+      position: absolute;
+      left: 4.5px; /* 持ち手の右隣にピッタリ配置 */
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 13px solid #E57373; /* 温かみのあるピンク赤 */
+    }
 
-/* 白丸の中の下向き矢印 */
-.button-arrow {
-  width: 12px;
-  height: 12px;
-  color: #113D24;
-}
+    /* 掲示板見出しテキスト (section-headingtext) */
+    .section-headingtext {
+      font-size: 36px; /* フォントサイズ36px */
+      font-weight: 700;
+      color: #422C1D;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
 
-/* ==========================================
-   5. メニュー＆詳細モーダル (共通設計)
-   ========================================== */
-.navigation-menu {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 24px;
-  padding-right: 24px;
+    /* 掲示板画像 (news-image) */
+    .news-image {
+      width: 100%;
+      height: 196px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 3px solid #422C1D; /* 太めの焦げ茶ふち線 */
+      box-shadow: 0 4px 10px rgba(66, 44, 29, 0.08);
+      margin-bottom: 24px;
+    }
+
+    /* 掲示板テキスト (news-text) */
+    .news-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #422C1D;
+      line-height: 1.8;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    /* もっと見るボタンコンテナ (more-button-container) */
+    .pill-button-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end; /* 画像とピッタリ揃うよう右寄せにする */
+      margin-top: 32px; /* カンプ同様テキストから適度な位置に持ち上げました */
+    }
+
+    /* もっと見るボタン (more-button) */
+    .pill-button {
+      background-color: #113D24; /* カンプデザインの深緑色 */
+      border: none;
+      border-radius: 9999px;
+      padding: 6px 6px 6px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      width: 154px;
+      box-shadow: 0 4px 6px rgba(17, 61, 36, 0.15);
+      outline: none;
+    }
+
+    .pill-button:hover {
+      background-color: #0b2d1a;
+    }
+
+    .pill-button:active {
+      transform: scale(0.97);
+    }
+
+    /* ボタンテキスト (button-text) */
+    .button-text {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    /* ボタン右側の白丸 (button-circle) */
+    .button-circle {
+      width: 24px;
+      height: 24px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+    }
+
+    /* 白丸の中の下向き矢印 (▼) 
+       カンプ画像「image_2c6564.png」を完全に再現するため、ポリゴンサイズを最適化
+    */
+    .button-arrow {
+      width: 10px;
+      height: 10px;
+      display: block;
+    }
+
+    /* ==========================================
+       5. 初めてガイド ＆ 8. SNS・フッター 共通背景設定
+       ========================================== */
+    .guide-section, .sns-footer {
+      /* 【VSCodeローカル開発・後からの背景画像差し替えポイント】
+        あとで「初めてガイド」と「SNS」に全く同じオリジナル画像（例: bg_watercolor.png など）を
+        当てたい場合は、以下の url('...') のパスをご希望のファイル名に書き換えてください。
+        
+        例: url('bg_watercolor.png')
+        
+        現在は高品質な水彩紙のテクスチャの上に、美しいミントグリーン #33AD8B を
+        「乗算ブレンド(multiply)」して瑞々しい水彩画テクスチャを再現しています。
+      */
+      background-image: 
+        linear-gradient(135deg, rgba(51, 173, 139, 0.94) 0%, rgba(35, 143, 112, 0.97) 100%),
+        url('https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800'); 
+      background-blend-mode: multiply;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* ==========================================
+       5. 初めてガイドセクション (指定サイズ: 390px × 735px)
+       ========================================== */
+    .guide-section {
+      width: 100%;
+      max-width: 390px;
+      min-height: 735px;
+      margin: 0 auto;
+      
+      /* 右上の角だけ20px of 角丸 */
+      border-top-right-radius: 20px;
+      border-top-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+
+      position: relative;
+      padding: 36px 20px 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      z-index: 3; /* 重ね合わせ用：掲示板(2)より上 */
+    }
+
+    /* 見出しエリア */
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 24px;
+      padding-left: 4px;
+      z-index: 10;
+    }
+
+    /* ピンクの三角フラッグ (section-frag) - 棒つき再現 */
+    .section-frag {
+      position: relative;
+      width: 24px;
+      height: 42px;
+      margin-right: 6px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .section-frag::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      bottom: 0;
+      width: 2.5px;
+      height: 38px;
+      background-color: #422C1D;
+      border-radius: 1px;
+    }
+
+    .section-frag::after {
+      content: "";
+      position: absolute;
+      left: 4.5px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 13px solid #E57373;
+    }
+
+    /* 見出しテキスト 36px */
+    .section-headingtext {
+      font-size: 36px;
+      font-weight: 700;
+      color: #422C1D;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+
+    /* S字カーブの点線小道 (SVG) */
+    .guide-road {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 各ステップの共通配置コンテナ */
+    .step-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+    }
+
+    /* 各ボタンの配置座標 */
+    .step-1 {
+      top: 135px;
+      right: 48px;
+    }
+
+    .step-2 {
+      top: 310px;
+      left: 165px; /* 中央 */
+    }
+
+    .step-3 {
+      top: 490px;
+      left: 48px;
+    }
+
+    /* ステップラベル (Step 1, Step 2, Step 3) */
+    .step-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #422C1D;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ティールグリーンの楕円ボタン */
+    .step-btn {
+      width: 96px;
+      height: 48px;
+      border-radius: 50% / 50%; /* 完全な楕円形 */
+      background-color: #35B5AA;
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(53, 181, 170, 0.25);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      outline: none;
+    }
+
+    .step-btn:hover {
+      transform: scale(1.06);
+      background-color: #2da096;
+    }
+
+    .step-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Step 3 of ボタン左上に乗る小さなピンクフラッグ */
+    .step-mini-frag {
+      position: absolute;
+      left: -2px;
+      top: 12px;
+      width: 14px;
+      height: 24px;
+      pointer-events: none;
+    }
+
+    .step-mini-frag::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      bottom: 0;
+      width: 1.5px;
+      height: 22px;
+      background-color: #422C1D;
+    }
+
+    .step-mini-frag::after {
+      content: "";
+      position: absolute;
+      left: 2.5px;
+      top: 2px;
+      width: 0;
+      height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 8px solid #E57373;
+    }
+
+    /* 各ステップをクリックしたときのポップアップ吹き出し */
+    .step-pop {
+      position: absolute;
+      background-color: #ffffff;
+      border: 1px solid #d2e6bb;
+      padding: 12px 16px;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      width: 200px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 40;
+    }
+
+    /* 吹き出しのしっぽ */
+    .step-pop::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    /* 位置別の吹き出し配置と矢印の向き */
+    .step-1 .step-pop {
+      top: 10px;
+      right: 110px; /* 左側に表示 */
+    }
+    .step-1 .step-pop::after {
+      top: 22px;
+      right: -8px;
+      border-width: 8px 0 8px 8px;
+      border-color: transparent transparent transparent #ffffff;
+    }
+
+    .step-2 .step-pop {
+      top: -85px; /* 上側に表示 */
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.95);
+    }
+    .step-2 .step-pop::after {
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px 8px 0 8px;
+      border-color: #ffffff transparent transparent transparent;
+    }
+
+    .step-3 .step-pop {
+      top: 10px;
+      left: 110px; /* 右側に表示 */
+    }
+    .step-3 .step-pop::after {
+      top: 22px;
+      left: -8px;
+      border-width: 8px 8px 8px 0;
+      border-color: transparent #ffffff transparent transparent;
+    }
+
+    /* 表示時のアクティブクラス */
+    .step-pop.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .step-2 .step-pop.open {
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .step-pop p {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #57534e;
+    }
+
+    /* 下部アクションボタンコンテナ */
+    .guide-action-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end; /* 右寄せ */
+      position: absolute;
+      bottom: 32px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    /* 一歩踏み出してみる...？ボタン */
+    .pill-button {
+      background-color: #0F2E1B; /* よりカンプに近い深い森林緑 */
+      border: none;
+      border-radius: 9999px;
+      padding: 6px 6px 6px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      width: 215px; /* カンプ比率に合わせた横幅 */
+      box-shadow: 0 4px 6px rgba(15, 46, 27, 0.15);
+      outline: none;
+    }
+
+    .pill-button:hover {
+      background-color: #081e10;
+    }
+
+    .pill-button:active {
+      transform: scale(0.97);
+    }
+
+    .button-text {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .button-circle {
+      width: 24px;
+      height: 24px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+    }
+
+    /* 白丸の中の下向き三角矢印 (▼) 
+       カンプ画像「image_2c6564.png」を完璧に再現するため、完全にセンタリングしたポリゴンサイズに調整
+    */
+    .button-arrow {
+      width: 10px;
+      height: 10px;
+      display: block;
+    }
+
+
+    /* ==========================================
+       6. スケジュールセクション (指定サイズ: 390px × 1287px)
+       ========================================== */
+    .schedule-section {
+      width: 100%;
+      max-width: 390px;
+      min-height: 1287px;
+      margin: 0 auto;
+      
+      /* 淡いパステルスカイブルー背景 */
+      background-color: #E7F6F8;
+      
+      /* 左上だけ20px of 角丸 ＆ その他は直角 */
+      border-top-left-radius: 20px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+
+      /* 前のguide-sectionとピッタリ重なり合って背景を埋める */
+      margin-top: -20px;
+      position: relative;
+      padding: 36px 20px 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      z-index: 4; /* guide-section(3)のすぐ上に綺麗に重なるように設定 */
+    }
+
+    /* 見出しエリア (section-heading) */
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 24px;
+      padding-left: 4px;
+    }
+
+    /* ピンクの三角フラッグ (section-frag) - 棒つき再現 */
+    .section-frag {
+      position: relative;
+      width: 24px;
+      height: 42px;
+      margin-right: 6px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .section-frag::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      bottom: 0;
+      width: 2.5px;
+      height: 38px;
+      background-color: #422C1D;
+      border-radius: 1px;
+    }
+
+    .section-frag::after {
+      content: "";
+      position: absolute;
+      left: 4.5px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 13px solid #E57373;
+    }
+
+    /* スケジュール見出しテキスト 36px */
+    .section-headingtext {
+      font-size: 36px;
+      font-weight: 700;
+      color: #422C1D;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+
+    /* 曜日カードコンテナ */
+    .schedule-cards-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* カード同士の間隔 */
+      margin-top: 8px;
+      align-items: center;
+    }
+
+    /* 各曜日カードコンテナ (Mon, Tue, etc.) 
+       曜日のサイズ「351px × 173px」にピクセルパーフェクト固定。
+    */
+    .day-card {
+      width: 100%;
+      max-width: 351px;
+      min-height: 173px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(45, 172, 163, 0.06);
+      flex-shrink: 0;
+    }
+
+    /* 曜日の緑ヘッダー (Mon, Tue) 
+       高さ44pxに固定、テキストを上下左右中央寄せ
+    */
+    .day-header {
+      background-color: #2DACA3; /* カンプのティールグリーン */
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      text-align: center;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.15em;
+      flex-shrink: 0;
+    }
+
+    /* スケジュール詳細の白カード部分 (Mon-about) 
+       高さ129px（44px + 129px = 173px）に固定し、パディングを広げカンプ通りの余白を再現
+    */
+    .day-about {
+      background-color: #ffffff;
+      min-height: 129px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px; /* 各行（チーム / 場所）の間隔を広げカンプの比率に一致 */
+      flex-shrink: 0;
+    }
+
+    /* 各行 (team / place) */
+    .about-row {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ラベル部分 (「チーム」「場所」) */
+    .row-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #57534e; /* stone-600 */
+      width: 52px; /* 位置をピッタリ揃えるための固定幅 */
+      flex-shrink: 0;
+      line-height: 1;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* 縦の区切り線（Line）をCSSで完全に自動描画 */
+    .row-divider {
+      width: 1.5px;
+      height: 14px;
+      background-color: #E7E5E4; /* stone-200 */
+      margin: 0 16px;
+      flex-shrink: 0;
+    }
+
+    /* 変動するスケジュール内容テキスト (「1. 2. 3」「大連」) */
+    .row-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: #292524; /* stone-800 */
+      line-height: 1.2;
+    }
+
+
+    /* ==========================================
+       7. 「頑張ってみる？」セクション (指定サイズ: 390px × 373px)
+       ========================================== */
+    .apply-section {
+      /* 左右に不自然な白地（隙間）が出ないよう、幅をフレームいっぱいの「390px」に設定。 */
+      width: 100%; 
+      max-width: 390px;
+      min-height: 373px;
+      
+      /* 上下のセクションとの境界にブラウザ描画上のズレ（白い隙間）が発生するのを防ぐため、上下に -1px の微調整マージンを設定。 */
+      margin: -1px auto -1px auto; 
+      
+      /* 美しい新緑と木漏れ日の水彩画風背景 */
+      background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&q=80&w=600');
+      background-size: cover;
+      background-position: center;
+      
+      /* 角丸を一切適用しないシャープな直角デザイン */
+      border-radius: 0px;
+
+      position: relative;
+      padding: 40px 20px 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      z-index: 5; /* スケジュール(4)のすぐ下にスムーズに接続 */
+    }
+
+    /* CSSで描く、ふわふわ浮かぶ白い光のドット（玉ボケ）ときらきらエフェクト */
+    .apply-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.7) 4px, transparent 12px),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.8) 6px, transparent 16px),
+        radial-gradient(circle at 45% 75%, rgba(255, 255, 255, 0.6) 5px, transparent 14px),
+        radial-gradient(circle at 75% 85%, rgba(255, 255, 255, 0.7) 8px, transparent 20px);
+      background-size: 100% 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 頑張ってみる？ボタン */
+    .apply-btn {
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.95);
+      border: none;
+      border-radius: 9999px; /* 楕円カプセル */
+      width: 300px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(66, 44, 29, 0.12);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 60px; /* カンプ比率に合わせた配置高さ */
+      outline: none;
+      z-index: 2;
+    }
+
+    .apply-btn:hover {
+      transform: scale(1.04) translateY(-3px);
+      background-color: #ffffff;
+      box-shadow: 0 12px 30px rgba(66, 44, 29, 0.18);
+    }
+
+    .apply-btn:active {
+      transform: scale(0.97) translateY(0px);
+    }
+
+    /* カンプ通りの太くて愛らしい「頑張ってみる？」テキスト */
+    .apply-btn-text {
+      font-size: 32px;
+      font-weight: 900;
+      color: #422C1D; /* 焦げ茶色 */
+      letter-spacing: 0.05em;
+      line-height: 1;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+    }
+
+    /* 右上の刺さる茶色の太い矢印 (SVG) */
+    .apply-arrow-svg {
+      position: absolute;
+      right: 14px;
+      top: -18px;
+      width: 48px;
+      height: 48px;
+      pointer-events: none;
+      transform: rotate(0deg);
+      filter: drop-shadow(0 2px 4px rgba(66, 44, 29, 0.1));
+    }
+
+    /* 下部：困ったこと・相談したいことはいつでも！カプセル */
+    .message-capsule {
+      background-color: rgba(255, 255, 255, 0.85); /* 半透明の白 */
+      border-radius: 18px; /* 丸みのあるカプセル形状 */
+      width: 340px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: auto; /* コンテナの最下部にぴったりフィット */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      z-index: 2;
+    }
+
+    .message-capsule p {
+      font-size: 11px;
+      font-weight: 700;
+      color: #422C1D;
+      line-height: 1.4;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+
+    /* ==========================================
+       8. SNS ＆ フッター (指定サイズ: 390px × 271px)
+       ========================================== */
+    .sns-footer {
+      width: 100%;
+      max-width: 390px;
+      min-height: 271px; /* 最後のセクションサイズ 390px × 271px にピクセルパーフェクト調整 */
+      margin: 0 auto;
+      
+      /* 直角角（角丸なし）の設計を徹底 */
+      border-radius: 0px;
+      
+      /* 高さ271pxの内部に美しくマウントするためのタイトなパディング設計 */
+      padding: 24px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      z-index: 6;
+      position: relative;
+    }
+
+    /* 見出しエリア */
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      align-self: flex-start;
+      width: 100%;
+      margin-bottom: 24px;
+      padding-left: 4px;
+    }
+
+    /* ピンクの三角フラッグ (section-frag) */
+    .section-frag {
+      position: relative;
+      width: 24px;
+      height: 42px;
+      margin-right: 6px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .section-frag::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      bottom: 0;
+      width: 2.5px;
+      height: 38px;
+      background-color: #422C1D;
+      border-radius: 1px;
+    }
+
+    .section-frag::after {
+      content: "";
+      position: absolute;
+      left: 4.5px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 13px solid #E57373;
+    }
+
+    /* SNS見出しテキスト 36px */
+    .section-headingtext {
+      font-size: 36px;
+      font-weight: 700;
+      color: #422C1D;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+
+    /* アイコンコンテナ */
+    .sns-icons-container {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+
+    /* リンク全体を包む a タグのスタイル */
+    .sns-link-anchor {
+      text-decoration: none;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /*
+       外部CDN障害でも、プレビュー環境で100%確実に表示されるよう、
+       すべてのアイコンを美しいインラインSVG線画へ完全に置き換えました。
+    */
+    .sns-link-icon {
+      width: 44px; /* 大きく愛らしいカンプ比率サイズ */
+      height: 44px;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    /* ホバー（タップ）時にバウンスするインタラクション効果 */
+    .sns-link-anchor:hover .sns-link-icon {
+      transform: scale(1.15) rotate(4deg);
+    }
+
+    .sns-link-anchor:active .sns-link-icon {
+      transform: scale(0.9);
+    }
+
+    /* コピーライト ＆ アカウントテキスト (@2026yuumi) */
+    .copyright-text {
+      font-size: 15px; /* カンプ通りのバランスに調整 */
+      font-weight: 700;
+      color: #422C1D;
+      opacity: 0.8;
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+
+
+    /* ==========================================
+       9. 各種モーダル (共通設計)
+       ========================================== */
+    .navigation-menu {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 24px;
+      padding-right: 24px;
+      
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .navigation-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-modal {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #d2e6bb;
+      
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .navigation-menu.open .menu-modal {
+      transform: scale(1);
+    }
+
+    .menu-modal-header {
+      background-color: #f5f9f0;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e8f2dc;
+    }
+
+    .menu-modal-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #422C1D;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .title-icon {
+      width: 16px;
+      height: 16px;
+      color: #4e7524;
+    }
+
+    .close-btn {
+      color: #a8a29e;
+      padding: 4px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      background-color: #f5f5f4;
+      color: #57534e;
+    }
+
+    .close-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .menu-modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .menu-item {
+      text-align: left;
+      padding: 10px 16px;
+      border-radius: 12px;
+      color: #422C1D;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+    }
+
+    .menu-item:hover {
+      background-color: #f5f9f0;
+      color: #385517;
+    }
+
+    /* MENU内の各SNS用リンク項目のスタイル */
+    .menu-item-sns {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #422C1D;
+      font-weight: 700;
+      font-size: 12px;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .menu-item-sns:hover {
+      background-color: #f5f9f0;
+      color: #113D24;
+    }
+
+    .menu-sns-icon {
+      width: 16px;
+      height: 16px;
+      color: #422C1D;
+    }
+
+    .menu-divider {
+      border: none;
+      border-top: 1px solid #f5f5f4;
+      margin: 4px 0;
+    }
+
+    .menu-bottom-close-btn {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background-color: #4e7524;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.2s, transform 0.1s;
+      outline: none;
+    }
+
+    .menu-bottom-close-btn:hover {
+      background-color: #385517;
+    }
+
+    .menu-bottom-close-btn:active {
+      transform: scale(0.98);
+    }
+
+    .modal-detail-text {
+      font-size: 11px;
+      line-height: 1.8;
+      color: #57534e;
+      text-align: left;
+    }
   
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
-}
+    /* 共通カプセルボタン */
+    .pill-button {
+      background-color: #113D24;
+      border: none;
+      border-radius: 9999px;
+      padding: 6px 6px 6px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 4px 6px rgba(17, 61, 36, 0.15);
+      outline: none;
+    }
 
-.navigation-menu.open {
-  opacity: 1;
-  pointer-events: auto;
-}
+    .pill-button:hover {
+      background-color: #0b2d1a;
+    }
 
-.menu-modal {
-  background-color: #ffffff;
-  width: 100%;
-  max-width: 300px;
-  border-radius: 32px;
-  overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #d2e6bb;
-  
-  transform: scale(0.95);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+    .pill-button:active {
+      transform: scale(0.97);
+    }
 
-.navigation-menu.open .menu-modal {
-  transform: scale(1);
-}
+    .pill-button--small {
+      width: 154px;
+    }
 
-.menu-modal-header {
-  background-color: #f5f9f0;
-  padding: 20px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e8f2dc;
-}
+    .pill-button--wide {
+      width: 215px;
+      background-color: #0F2E1B;
+      box-shadow: 0 4px 6px rgba(15, 46, 27, 0.15);
+    }
 
-.menu-modal-title {
-  font-weight: 700;
-  font-size: 14px;
-  color: #422C1D;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+    .pill-button--wide:hover {
+      background-color: #081e10;
+    }
 
-.title-icon {
-  width: 16px;
-  height: 16px;
-  color: #4e7524;
-}
-
-.close-btn {
-  color: #a8a29e;
-  padding: 4px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.close-btn:hover {
-  background-color: #f5f5f4;
-  color: #57534e;
-}
-
-.close-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.menu-modal-body {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.menu-item {
-  text-align: left;
-  padding: 10px 16px;
-  border-radius: 12px;
-  color: #422C1D;
-  font-weight: 700;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.menu-item:hover {
-  background-color: #f5f9f0;
-  color: #385517;
-}
-
-.menu-divider {
-  border: none;
-  border-top: 1px solid #f5f5f4;
-  margin: 4px 0;
-}
-
-.menu-bottom-close-btn {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background-color: #4e7524;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s, transform 0.1s;
-  outline: none;
-}
-
-.menu-bottom-close-btn:hover {
-  background-color: #385517;
-}
-
-.menu-bottom-close-btn:active {
-  transform: scale(0.98);
-}
-
-.modal-detail-text {
-  font-size: 11px;
-  line-height: 1.8;
-  color: #57534e;
-  text-align: left;
-}
+    .menu-chevron-icon {
+      width: 14px;
+      height: 14px;
+      opacity: 0.5;
+      color: currentColor;
+    }
