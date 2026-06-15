@@ -18,6 +18,7 @@ document.getElementById('menu-overlay').addEventListener('click', function (e) {
 const topSection = document.querySelector('.s-top');
 const topBg = document.querySelector('.s-top__bg');
 const topText = document.querySelector('.tpo-text');
+const topFront = document.querySelector('.s-top__front');
 
 window.addEventListener('scroll', () => {
 
@@ -34,6 +35,11 @@ topText.style.transform =
 
 topText.style.opacity =
   `${Math.max(1 - progress * 1.4, 0)}`;
+
+  if (topFront) {
+  topFront.style.transform =
+    `translateY(${progress * -120}px) scale(${1 + progress * 0.18})`;
+}
 
 topSection.style.setProperty(
   '--top-whiteout',

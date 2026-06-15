@@ -55,6 +55,16 @@ body {
   will-change: transform, filter;
 }
 
+.s-top__front {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 4;
+  will-change: transform;
+}
+
 .s-top::after {
   content: "";
   position: absolute;
