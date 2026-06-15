@@ -21,7 +21,7 @@ body {
 /* ===== TOP SECTION ===== */
 .s-top {
   position: relative;
-  height: 847px;
+  height: 1100px;
   overflow: hidden;
   perspective: 1000px;
 }
@@ -150,10 +150,10 @@ body {
   position: relative;
   background: #f8faf7;
   height: 579px;
-  margin-top: -80px;
+  margin-top: -90px;
   z-index: 5;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  border-top-left-radius: 38px;
+  border-top-right-radius: 38px;
 }
 
 .news-heading {
@@ -212,7 +212,7 @@ body {
 .news-text {
   position: absolute;
   left: 20px;
-  top: 322px;
+  top: 336px;
   width: 324px;
   text-align: center;
   font-family: 'Zen Kaku Gothic New', sans-serif;
@@ -224,8 +224,8 @@ body {
 
 .more-btn {
   position: absolute;
-  left: 184px;
-  top: 405px;
+  left: 202px;
+  top: 438px;
   display: flex;
   align-items: center;
   gap: 25px;
