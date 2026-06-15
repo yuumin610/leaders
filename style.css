@@ -8,7 +8,7 @@
     }
 
     body {
-      background-color: #ffffff;
+      background-color: #F8FAF7;
       overflow-x: hidden;
       font-family: "Zen Maru Gothic", sans-serif;
       color: #422C1D; /* カンプ指定の焦げ茶色 */
@@ -22,7 +22,7 @@
       max-width: 390px;
       margin: 0 auto;
       min-height: 100vh; /* 本番公開ではページ全体を自然にスクロールさせます */
-      background-color: #ffffff;
+      background-color: #F8FAF7;
       box-shadow: none;
       border-radius: 0px; /* 背景の角を丸くしないよう直角に変更しました */
       overflow-y: visible;
@@ -57,7 +57,7 @@
       padding: 24px;
       overflow: hidden;
       z-index: 1; /* 重なり順を下にして、次のセクションが覆い被さるようにします */
-      background-color: #ffffff;
+      background-color: #F8FAF7;
       /* 立体効果のための透視投影空間（3D）を作成 */
       perspective: 1000px;
     }
@@ -251,7 +251,7 @@
     }
 
     .scroll-arrow:hover {
-      background-color: #ffffff;
+      background-color: #F8FAF7;
     }
 
     .arrow-icon {
@@ -277,7 +277,7 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%);
-      background-color: #ffffff; /* フォールバック用のソリッドホワイト */
+      background-color: #F8FAF7; /* フォールバック用のソリッドホワイト */
       background-blend-mode: normal;
       pointer-events: none;
       z-index: 35;
@@ -342,12 +342,14 @@
        4. 掲示板セクション (指定サイズ: 350px × 579px)
        ========================================== */
     .news-section {
-      width: 350px;
-      height: 579px;
-      margin: 40px auto; /* 390px幅フレームの中央に配置されます */
-      background-color: #FFF4F4; /* カンプを再現した薄ピンク */
-      border-radius: 0px; /* 掲示板背景の角丸を直角に変更しました */
-      border: 1px solid #FFECEC;
+      max-width: 350px;
+      min-height: 579px;
+      width: calc(100% - 40px);
+      margin: 40px auto; 
+      border: 1px solid #42301D; 
+      background-color: #F8FAF7; 
+      border-radius: 0px; 
+      
       padding: 36px 20px 32px 20px;
       display: flex;
       flex-direction: column;
@@ -359,23 +361,22 @@
       z-index: 2; /* トップヘッダー(1)より高くして、上に重なりながら上がってくるようにします */
     }
 
-    
     /* 掲示板画像 (news-image) */
     .news-image {
       width: 100%;
       height: 196px;
       object-fit: cover;
       border-radius: 20px;
-      border: 3px solid #422C1D; /* 太めの焦げ茶ふち線 */
-      box-shadow: 0 4px 10px rgba(66, 44, 29, 0.08);
+      border: 3px solid #42301D; 
+      box-shadow :0 4px 10px rgba(66, 44, 29, 0.08);
       margin-bottom: 24px;
     }
 
     /* 掲示板テキスト (news-text) */
     .news-text {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 700;
-      color: #422C1D;
+      color: #42301D;
       line-height: 1.8;
       text-align: center;
       letter-spacing: 0.03em;
@@ -392,7 +393,7 @@
     
     /* ボタンテキスト (button-text) */
     .button-text {
-      color: #ffffff;
+      color: #F8FAF7;
       font-size: 11px;
       font-weight: 900;
       letter-spacing: 0.05em;
@@ -403,7 +404,7 @@
     .button-circle {
       width: 24px;
       height: 24px;
-      background-color: #ffffff;
+      background-color: #F8FAF7;
       border-radius: 50%;
       display: flex;
       align-items: center;
