@@ -39,3 +39,12 @@ topSection.style.setProperty(
   '--top-whiteout',
   Math.min(Math.max((progress - 0.28) * 2.2, 0), 0.85)
 )});
+topSection.style.setProperty(
+  '--top-foreground-y',
+  `${progress * -150}px`
+);
+
+topSection.style.setProperty(
+  '--top-foreground-scale',
+  `${1 + progress * 0.35}`
+);
