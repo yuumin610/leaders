@@ -2,378 +2,294 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アカペラの森 </title>
-  
-  <!-- Google Fonts: 優しい丸ゴシック 'Zen Maru Gothic' -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>アカペラの森</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Arimo&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- メインスマホフレーム -->
-  <main class="main-container">
+  <div class="page">
 
-    <!-- ==========================================
-         1. ヘッダー / メインビジュアル (390px × 847px)
-         ========================================== -->
-    <header class="top-header" id="top-header">
-      <!-- 最深部：背景の森 -->
-      <div class="top-bg-image"></div>
-      
-      <!-- 第2層：幻想的なエメラルドとピンクの極光オーロラ -->
-      <div class="sky-glow"></div>
-      
-      <!-- やわらかな陽だまりフィルター -->
-      <div class="light-filter"></div>
-      
-      <!-- 木漏れ日揺らぎ -->
-      <div class="komorebi-bg"></div>
-
-      <!-- 第3層：3D深度をもって舞い散る胞子（粒子） -->
-      <div class="magical-particles">
-        <!-- 異なる大きさ・奥行きを持った光の玉 -->
-        <div class="particle" style="top: 20%; left: 10%; width: 14px; height: 14px; background: radial-gradient(circle, rgba(255,253,200,0.95) 0%, rgba(255,253,200,0) 70%); filter: blur(1.5px);"></div>
-        <div class="particle" style="top: 55%; left: 80%; width: 22px; height: 22px; background: radial-gradient(circle, rgba(165,244,204,0.9) 0%, rgba(165,244,204,0) 75%); filter: blur(2.5px);"></div>
-        <div class="particle" style="top: 40%; left: 45%; width: 10px; height: 10px; background: radial-gradient(circle, rgba(255,190,210,0.95) 0%, rgba(255,190,210,0) 70%); filter: blur(0.8px);"></div>
-        <div class="particle" style="top: 75%; left: 15%; width: 26px; height: 26px; background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 80%); filter: blur(3px);"></div>
-        <div class="particle" style="top: 15%; left: 75%; width: 16px; height: 16px; background: radial-gradient(circle, rgba(255,245,160,0.9) 0%, rgba(255,245,160,0) 70%); filter: blur(1.2px);"></div>
-      </div>
-
-      <!-- 第4層：手前を通り過ぎる大きくボケた木の葉（周辺シャドウ効果） -->
-      <div class="foreground-leaves"></div>
-
-      <!-- MENUボタンコンテナ -->
-      <div class="menu-container">
-        <!-- メインMENUボタン -->
-        <button id="menu-btn" class="menu-btn" aria-label="メニューを開く">
-          <div class="menu-btn-lines">
-            <span class="line"></span>
-            <span class="line"></span>
-          </div>
-          <span class="menu-btn-text">MENU</span>
-        </button>
-      </div>
-
-      <!-- コピー＆タイトル -->
-      <div class="header-content" id="header-content">
-        <h1 class="main-title">アカペラの森</h1>
-        <p class="sub-title">
-          楽しいサークルLifeを<br>
-          始めたいあなたに
-        </p>
-      </div>
-
-      <!-- 下矢印インジケータ -->
-      <div class="indicator-container" id="indicator-container">
-        <div class="scroll-arrow" id="scroll-arrow" role="button" tabindex="0" aria-label="掲示板セクションへ移動する">
-          <!-- ▼の下向きポリゴンSVGをマウント -->
-          <svg class="arrow-icon" viewBox="0 0 24 24">
-            <polygon points="5,8 12,16 19,8" fill="#4e7524" />
-          </svg>
+    <!-- TOP SECTION -->
+    <section class="s-top">
+      <img class="s-top__bg"
+        src="Topbg.png"
+        alt="アカペラの森">
+      <div class="tpo-text">
+        <h1 class="tpo-text__title">アカペラの森</h1>
+        <div class="tpo-text__sub">
+          <p>楽しいサークルLifeを</p>
+          <p>始めたいあなたに</p>
         </div>
       </div>
-
-      <!-- ホワイトアウト用オーバーレイ（中心からブワッと拡大して真っ白に包み込むワープ光） -->
-      <div id="whiteout-overlay"></div>
-    </header>
-
-    <!-- ==========================================
-         2. 掲示板セクション (指定サイズ: 350px × 579px)
-         ========================================== -->
-    <section id="news-section" class="news-section">
-      
-      <!-- 見出しエリア (section-heading) -->
-      <div id="section-heading" class="section-heading">
-        <!-- ピンクの三角フラッグ (section-frag) - 焦げ茶の棒つきにアップデート -->
-        <span id="section-frag" class="section-frag"></span>
-        <!-- 見出しテキスト (section-headingtext) - 36pxに拡大 -->
-        <h2 id="section-headingtext" class="section-headingtext">掲示板</h2>
-      </div>
-
-      <!-- 📸 掲示板画像 (news-image) -->
-      <img class="news-image" src="news-image.png" alt="アカペラ練習風景のイラスト">
-
-      <!-- 📝 掲示板テキスト (news-text) -->
-      <div class="news-text">
-        7月3日に大学にて大学祭開催<br>
-        締め切りは6月30日までです
-      </div>
-
-      <!-- もっと見るボタンコンテナ (more-button-container) - カンプ同様右下に配置 -->
-      <div class="more-button-container">
-        <!-- もっと見るボタン (more-button) -->
-        <button id="more-button" class="pill-button pill-button--small" aria-label="掲示板の詳細を開く">
-          <!-- ボタンテキスト (button-text) -->
-          <span class="button-text">もっと見る</span>
-          <!-- ボタンの白丸 (button-circle) -->
-          <span class="button-circle">
-            <!-- ▽を塗りつぶしたカンプ「image_2c6564.png」通りの▼ポリゴンSVGに修正・センタリング調整完了 -->
-            <svg class="button-arrow" viewBox="0 0 24 24">
-              <polygon points="5,8 12,16 19,8" fill="#113D24" />
-            </svg>
-          </span>
-        </button>
-      </div>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="メニューを開く">
+        <svg style="position:absolute;inset:0;width:100%;height:100%" fill="none" viewBox="0 0 51 50" preserveAspectRatio="none">
+          <ellipse cx="25.5" cy="25" fill="#42301D" rx="25.5" ry="25"/>
+          <line x1="8" x2="43" y1="13" y2="13" stroke="#F8FAF7"/>
+          <line x1="8" x2="43" y1="22" y2="22" stroke="#F8FAF7"/>
+        </svg>
+        <span class="menu-btn__text">MENU</span>
+      </button>
     </section>
 
-    <!-- ==========================================
-         3. 初めてガイドセクション (指定サイズ: 390px × 735px)
-         ========================================== -->
-    <section id="guide-section" class="guide-section">
-      
-      <!-- 見出しエリア -->
-      <div class="section-heading">
-        <span class="section-frag"></span>
-        <h2 class="section-headingtext">初めてガイド</h2>
+    <!-- NEWS SECTION -->
+    <section class="s-news" id="news">
+      <div class="news-heading">
+        <svg class="news-heading__frag" fill="none" viewBox="0 0 28.6438 38" preserveAspectRatio="none">
+          <line x1="7.5" x2="7.5" y1="4" y2="38" stroke="#42301D"/>
+          <path d="M28.6307 12.295L7.15615 22.0824L7.17884 1.709L28.6307 12.295Z" fill="#E16B8C"/>
+        </svg>
+        <p class="news-heading__title">掲示板</p>
+      </div>
+      <div class="news-image">
+        <img src="news-image.png" alt="ニュース画像">
+        <div class="news-image__border"></div>
+      </div>
+      <div class="news-text">
+        <p>７月３日に大学にて大学祭開催</p>
+        <p>締め切りは６月３０日までです</p>
+      </div>
+      <a href="#" class="more-btn">
+        <span>もっと見る</span>
+        <svg class="btn-circle" fill="none" viewBox="0 0 24 24">
+          <rect width="24" height="24" rx="12" fill="#F8FAF7"/>
+          <path d="M12 17L6.80385 8L17.1962 8L12 17Z" fill="#0D401D"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- GUIDE SECTION -->
+    <section class="s-guide" id="guide">
+      <div class="s-guide__bg">
+        <img src="src/imports/スマホデザインカンプver3（最新）/4f248a65119c5441645b081ce2bc7710326adbbf.png" alt="">
+      </div>
+      <div class="guide-heading">
+        <div class="guide-heading__frag-wrap">
+          <div class="guide-heading__frag-inner">
+            <svg width="23.525" height="28.623" fill="none" viewBox="0 0 20.3734 21.4669">
+              <path d="M10.1867 0L20.3734 21.4669H0L10.1867 0Z" fill="#E16B8C"/>
+            </svg>
+          </div>
+        </div>
+        <div class="guide-heading__line">
+          <svg style="transform:rotate(90deg);display:block" width="34" height="2" fill="none" viewBox="0 0 34 1">
+            <line x1="0" x2="34" y1="0.5" y2="0.5" stroke="#42301D"/>
+          </svg>
+        </div>
+        <p class="guide-heading__title">初めてガイド</p>
       </div>
 
-      <!-- S字にうねる黄色い点線小道 (SVGグラフィック) -->
-      <svg class="guide-road" viewBox="0 0 390 735">
-        <!-- 始点を y=150 から Step 1 楕円ボタンの下端に収まる y=180 へと調整しました -->
-        <path d="M 294 180 C 294 250, 213 250, 213 334 C 213 410, 96 410, 96 490" fill="none" stroke="#FFF59D" stroke-width="5" stroke-dasharray="8 8" />
+      <p class="step-label step1-label">Step 1</p>
+      <svg class="step1-circle" fill="none" viewBox="0 0 64 44" preserveAspectRatio="none">
+        <ellipse cx="32" cy="22" fill="#33AD8B" rx="32" ry="22"/>
       </svg>
 
-      <!-- Step 1 (右側配置) -->
-      <div class="step-container step-1">
-        <span class="step-label">Step 1</span>
-        <button id="step-btn-1" class="step-btn" aria-label="Step 1の説明を開く"></button>
-        <!-- ポップアップ吹き出し -->
-        <div id="step-pop-1" class="step-pop">
-          <p>毎週水曜と金曜にのんびり練習しています。見学だけでも大歓迎！まずは優しい歌声を聴きに来てください ♫</p>
-        </div>
-      </div>
-
-      <!-- Step 2 (中央配置) -->
-      <div class="step-container step-2">
-        <span class="step-label">Step 2</span>
-        <button id="step-btn-2" class="step-btn" aria-label="Step 2の説明を開く"></button>
-        <!-- ポップアップ吹き出し -->
-        <div id="step-pop-2" class="step-pop">
-          <p>簡単なメロディを重ね合わせてハモる快感を体験！あなたにぴったりのパートを一緒に見つけましょう。</p>
-        </div>
-      </div>
-
-      <!-- Step 3 (左側配置) -->
-      <div class="step-container step-3">
-        <span class="step-label">Step 3</span>
-        <!-- 左上に乗る小さなフラッグ -->
-        <span class="step-mini-frag"></span>
-        <button id="step-btn-3" class="step-btn" aria-label="Step 3の説明を開く"></button>
-        <!-- ポップアップ吹き出し -->
-        <div id="step-pop-3" class="step-pop">
-          <p>お気に入りのパートが決まったらサークル合流！ステージでの最高の感動があなたを待っています。</p>
-        </div>
-      </div>
-
-      <!-- 下部「一歩踏み出してみる...？」カプセルボタン -->
-      <div class="guide-action-container">
-        <!-- 体験お申し込み（SNSセクションへスムーズスクロール） -->
-        <button id="guide-action-btn" class="pill-button pill-button--wide" aria-label="SNS・お問い合わせセクションへ移動する">
-          <span class="button-text">一歩踏み出してみる...？</span>
-          <span class="button-circle">
-            <!-- ▽を塗りつぶしたカンプ「image_2c6564.png」通りの▼ポリゴンSVGに修正・センタリング調整完了 -->
-            <svg class="button-arrow" viewBox="0 0 24 24">
-              <polygon points="5,8 12,16 19,8" fill="#0F2E1B" />
-            </svg>
-          </span>
-        </button>
-      </div>
-
-    </section>
-
-
-    <!-- ==========================================
-         4. スケジュールセクション (指定サイズ: 390px × 1287px)
-         ========================================== -->
-    <section id="schedule-section" class="schedule-section">
-      
-      <!-- 見出しエリア (section-heading) -->
-      <div class="section-heading">
-        <span class="section-frag"></span>
-        <h2 class="section-headingtext">スケジュール</h2>
-      </div>
-
-      <!-- 曜日カードリスト -->
-      <div class="schedule-cards-container" id="schedule-list">
-        <!-- 曜日カードは js/main.js の scheduleData から自動生成します -->
-      </div>
-
-    </section>
-
-
-    <!-- ==========================================
-         5. 頑張ってみる？ セクション (指定サイズ: 390px × 373px)
-         ========================================== -->
-    <section id="apply-section" class="apply-section">
-      
-      <!-- 頑張ってみる？楕円ボタン -->
-      <!-- 体験お申し込み（SNSセクションへスムーズスクロール） -->
-      <button id="apply-btn" class="apply-btn" aria-label="SNS・お問い合わせセクションへ移動する">
-        <!-- 焦げ茶の極太テキスト -->
-        <span class="apply-btn-text">頑張ってみる？</span>
-        
-        <!-- 右上の刺さる焦げ茶の太い矢印 (SVGで綺麗に描画) -->
-        <svg class="apply-arrow-svg" viewBox="0 0 48 48">
-          <!-- 右上から左下を指し示す矢印線 -->
-          <path d="M36 12 L14 34 M14 18 L14 34 L30 34" stroke="#422C1D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <div class="guide-path1"><div>
+        <svg style="display:block;width:100%;height:100%" fill="none" viewBox="0 0 86.7429 147.815" preserveAspectRatio="none">
+          <path d="M58.5289 3.0432C76.8222 34.1268 120.503 108.265 1.64012 142.043"
+            stroke="#FDF7BF" stroke-dasharray="24 24" stroke-width="12"/>
         </svg>
-      </button>
+      </div></div>
 
-      <!-- 下部のメッセージカプセル -->
-      <div class="message-capsule">
-        <p>困ったこと・相談したいことはいつでも！</p>
-        <p>一緒に頑張っていきましょう！</p>
-      </div>
+      <p class="step-label step2-label">Step 2</p>
+      <svg class="step2-circle" fill="none" viewBox="0 0 82 57" preserveAspectRatio="none">
+        <ellipse cx="41" cy="28.5" fill="#33AD8B" rx="41" ry="28.5"/>
+      </svg>
 
+      <div class="guide-path2"><div>
+        <svg style="display:block;width:100%;height:100%" fill="none" viewBox="0 0 97.4136 178.471" preserveAspectRatio="none">
+          <path d="M95.0001 5.49317C12.0284 41.948 -4.523 80.6678 11.4684 177.493"
+            stroke="#FDF7BF" stroke-dasharray="24 24" stroke-width="12"/>
+        </svg>
+      </div></div>
+
+      <svg class="step3-frag" fill="none" viewBox="0 0 28.6438 47.0001" preserveAspectRatio="none">
+        <line x1="7.49924" x2="7.49924" y1="4.94736" y2="47.0001" stroke="#42301D"/>
+        <path d="M28.6307 15.2071L7.15614 27.3125L7.17884 2.11381L28.6307 15.2071Z" fill="#E16B8C"/>
+      </svg>
+      <p class="step-label step3-label">Step 3</p>
+      <svg class="step3-circle" fill="none" viewBox="0 0 117 79" preserveAspectRatio="none">
+        <ellipse cx="58.5" cy="39.5" fill="#33AD8B" rx="58.5" ry="39.5"/>
+      </svg>
+
+      <a href="#" class="try-btn">
+        <span>一歩踏み出してみる…？</span>
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <rect width="24" height="24" rx="12" fill="#D9D9D9"/>
+          <path d="M12 17L6.80385 8L17.1962 8L12 17Z" fill="#0D401D"/>
+        </svg>
+      </a>
     </section>
 
-
-    <!-- ==========================================
-         6. SNS ＆ フッター (指定サイズ: 390px × 271px)
-         ========================================== -->
-    <footer id="sns-section" class="sns-footer">
-      
-      <!-- 見出しエリア -->
-      <div class="section-heading">
-        <span class="section-frag"></span>
-        <h2 class="section-headingtext">SNS</h2>
+    <!-- SCHEDULE SECTION -->
+    <section class="s-schedule" id="schedule">
+      <div class="s-schedule__bg-wrap">
+        <div class="s-schedule__bg-inner">
+          <img src="src/imports/スマホデザインカンプver3（最新）/8d55b671d7ab9ae6edd9edaf569d2e7a92e82fa0.png" alt="">
+        </div>
       </div>
+      <div class="schedule-heading">
+        <svg class="schedule-heading__frag" fill="none" viewBox="0 0 28.6438 37.9999" preserveAspectRatio="none">
+          <line x1="7.49924" x2="7.49924" y1="3.99994" y2="37.9999" stroke="#42301D"/>
+          <path d="M28.6307 12.295L7.15615 22.0824L7.17884 1.70899L28.6307 12.295Z" fill="#E16B8C"/>
+        </svg>
+        <p class="schedule-heading__title">スケジュール</p>
+      </div>
+      <div class="schedule-list">
+        <div class="schedule-item">
+          <div class="schedule-item__header"><span>月</span></div>
+          <div class="schedule-item__body">
+            <div class="schedule-row">
+              <span class="schedule-row__label">チーム</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">１．２．３</span>
+            </div>
+            <div class="schedule-row">
+              <span class="schedule-row__label">場所　</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">大連</span>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item__header"><span>火</span></div>
+          <div class="schedule-item__body">
+            <div class="schedule-row">
+              <span class="schedule-row__label">チーム</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">１．２．３</span>
+            </div>
+            <div class="schedule-row">
+              <span class="schedule-row__label">場所　</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">大連</span>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item__header"><span>水</span></div>
+          <div class="schedule-item__body">
+            <div class="schedule-row">
+              <span class="schedule-row__label">チーム</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">１．２．３</span>
+            </div>
+            <div class="schedule-row">
+              <span class="schedule-row__label">場所　</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">大連</span>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item__header"><span>木</span></div>
+          <div class="schedule-item__body">
+            <div class="schedule-row">
+              <span class="schedule-row__label">チーム</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">１．２．３</span>
+            </div>
+            <div class="schedule-row">
+              <span class="schedule-row__label">場所　</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">大連</span>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item__header"><span>金</span></div>
+          <div class="schedule-item__body">
+            <div class="schedule-row">
+              <span class="schedule-row__label">チーム</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">１．２．３</span>
+            </div>
+            <div class="schedule-row">
+              <span class="schedule-row__label">場所　</span>
+              <svg width="1" height="32" fill="none" viewBox="0 0 1 32"><line x1="0.5" x2="0.5" y1="0" y2="32" stroke="#D9D9D9"/></svg>
+              <span class="schedule-row__value">大連</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <!-- 
-        SNSアイコン
-        【100%表示保証インラインSVG】
-         各aタグの href="リンク先URL" を自由に変更して紐づけることができます。
-      -->
-      <div class="sns-icons-container">
-        
-        <!-- Instagramリンク -->
-        <a href="https://instagram.com/your_account" target="_blank" rel="noopener noreferrer" class="sns-link-anchor" title="Instagram" aria-label="Instagramを開く">
-          <svg class="sns-link-icon" viewBox="0 0 24 24" fill="none" stroke="#422C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    <!-- FIGHT SECTION -->
+    <section class="s-fight">
+      <div class="s-fight__bg">
+        <img src="src/imports/スマホデザインカンプver3（最新）/b82bd9bf7613b6cdc642dcb2ff499bd736ba3fcc.png" alt="">
+      </div>
+      <svg class="fight-arrow" fill="none" viewBox="0 0 123 159" preserveAspectRatio="none">
+        <path d="M61.8304 90.0604L91.9368 110.15L61.0536 128.762L61.8304 90.0604Z" fill="#42301D"/>
+        <path d="M97.9668 56L104.999 61.1218L80.0543 102.496L73.022 97.3738L97.9668 56Z" fill="#42301D"/>
+      </svg>
+      <a href="#" class="fight-btn">頑張ってみる？</a>
+      <div class="fight-message">
+        <div class="fight-message__inner">
+          <p>困ったこと・相談したいことはいつでも！</p>
+          <p>一緒に頑張っていきましょう！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNS SECTION -->
+    <section class="s-sns" id="sns">
+      <div class="s-sns__bg">
+        <img src="src/imports/スマホデザインカンプver3（最新）/4f248a65119c5441645b081ce2bc7710326adbbf.png" alt="">
+      </div>
+      <div class="sns-heading">
+        <svg class="sns-heading__frag" fill="none" viewBox="0 0 28.6438 37.9999" preserveAspectRatio="none">
+          <line x1="7.49925" x2="7.49924" y1="3.99983" y2="37.9998" stroke="#42301D"/>
+          <path d="M28.6307 12.2949L7.15615 22.0823L7.17884 1.70888L28.6307 12.2949Z" fill="#E16B8C"/>
+        </svg>
+        <p class="sns-heading__title">SNS</p>
+      </div>
+      <div class="sns-icons">
+        <a href="#" class="sns-icon" aria-label="Instagram">
+          <svg width="56" height="58" fill="none" viewBox="0 0 56 58">
+            <path d="M39.6667 4.83333H16.3333C9.89001 4.83333 4.66667 10.2432 4.66667 16.9167V41.0833C4.66667 47.7568 9.89001 53.1667 16.3333 53.1667H39.6667C46.11 53.1667 51.3333 47.7568 51.3333 41.0833V16.9167C51.3333 10.2432 46.11 4.83333 39.6667 4.83333Z" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M37.3333 27.4775C37.6213 29.4888 37.2896 31.5429 36.3854 33.3476C35.4813 35.1524 34.0507 36.6159 32.2971 37.53C30.5436 38.4442 28.5564 38.7624 26.6182 38.4393C24.68 38.1163 22.8894 37.1685 21.5013 35.7308C20.1131 34.2931 19.198 32.4386 18.8862 30.4312C18.5743 28.4238 18.8815 26.3656 19.7641 24.5494C20.6467 22.7332 22.0598 21.2515 23.8023 20.3151C25.5448 19.3786 27.5281 19.0351 29.47 19.3333C31.4508 19.6376 33.2847 20.5935 34.7006 22.0601C36.1166 23.5266 37.0396 25.4259 37.3333 27.4775Z" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M40.8333 15.7083H40.8575" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-
-        <!-- Twitter(X)リンク (カンプに合わせた愛らしい鳥のシルエット) -->
-        <a href="https://twitter.com/your_account" target="_blank" rel="noopener noreferrer" class="sns-link-anchor" title="Twitter" aria-label="Twitterを開く">
-          <svg class="sns-link-icon" viewBox="0 0 24 24" fill="none" stroke="#422C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        <a href="#" class="sns-icon" aria-label="Twitter">
+          <svg width="58" height="58" fill="none" viewBox="0 0 58 58">
+            <path d="M55.5833 7.25C53.2691 8.8824 50.7068 10.1309 47.995 10.9475C46.5395 9.27398 44.6052 8.08784 42.4537 7.54949C40.3021 7.01114 38.0371 7.14656 35.965 7.93743C33.8929 8.7283 32.1137 10.1365 30.868 11.9715C29.6223 13.8065 28.9703 15.9798 29 18.1975V20.6142C24.753 20.7243 20.5447 19.7824 16.7499 17.8723C12.9551 15.9623 9.6916 13.1434 7.25 9.66667C7.25 9.66667 -2.41667 31.4167 19.3333 41.0833C14.3563 44.4618 8.4273 46.1557 2.41667 45.9167C24.1667 58 50.75 45.9167 50.75 18.125C50.7478 17.4518 50.6831 16.7804 50.5567 16.1192C53.0231 13.6868 54.7637 10.6157 55.5833 7.25Z" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-
-        <!-- YouTubeリンク -->
-        <a href="https://youtube.com/your_channel" target="_blank" rel="noopener noreferrer" class="sns-link-anchor" title="YouTube" aria-label="YouTubeを開く">
-          <svg class="sns-link-icon" viewBox="0 0 24 24" fill="none" stroke="#422C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#422C1D"></polygon>
+        <a href="#" class="sns-icon" aria-label="YouTube">
+          <svg width="58" height="56" fill="none" viewBox="0 0 58 56">
+            <path d="M54.4717 14.98C54.1846 13.8726 53.5999 12.858 52.7767 12.0386C51.9536 11.2192 50.921 10.6241 49.7833 10.3133C45.6267 9.33333 29 9.33333 29 9.33333C29 9.33333 12.3733 9.33333 8.21667 10.4067C7.07901 10.7174 6.04644 11.3126 5.22325 12.1319C4.40006 12.9513 3.81541 13.966 3.52833 15.0733C2.7676 19.1463 2.39549 23.2781 2.41667 27.4167C2.38955 31.5864 2.76169 35.7497 3.52833 39.8533C3.84482 40.9263 4.44257 41.9023 5.26385 42.6871C6.08512 43.4719 7.10215 44.0389 8.21667 44.3333C12.3733 45.4067 29 45.4067 29 45.4067C29 45.4067 45.6267 45.4067 49.7833 44.3333C50.921 44.0226 51.9536 43.4274 52.7767 42.608C53.5999 41.7887 54.1846 40.774 54.4717 39.6667C55.2265 35.6244 55.5986 31.5241 55.5833 27.4167C55.6104 23.2469 55.2383 19.0836 54.4717 14.98Z" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M23.5625 35.0467L37.4583 27.4167L23.5625 19.7867V35.0467Z" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-
-        <!-- メール送信（お問い合わせ）リンク -->
-        <a href="mailto:your_email@domain.com" class="sns-link-anchor" title="メールで問い合わせ" aria-label="メールで問い合わせる">
-          <svg class="sns-link-icon" viewBox="0 0 24 24" fill="none" stroke="#422C1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
+        <a href="#" class="sns-icon" aria-label="メール">
+          <svg width="58" height="55" fill="none" viewBox="0 0 58 55">
+            <path d="M9.66667 9.16667H48.3333C50.9917 9.16667 53.1667 11.2292 53.1667 13.75V41.25C53.1667 43.7708 50.9917 45.8333 48.3333 45.8333H9.66667C7.00833 45.8333 4.83333 43.7708 4.83333 41.25V13.75C4.83333 11.2292 7.00833 9.16667 9.66667 9.16667Z" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M53.1667 13.75L29 29.7917L4.83333 13.75" stroke="#42301D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-
       </div>
+      <p class="sns-handle">@2026yuumi</p>
+    </section>
 
-      <!-- アカウントテキスト -->
-      <div class="copyright-text">
-        @2026yuumi
-      </div>
+  </div><!-- /.page -->
 
-    </footer>
-
-  </main>
-
-  <!-- ==========================================
-       ナビゲーションドロワーメニュー (MENUクリック用)
-       ========================================== -->
-  <div id="navigation-menu" class="navigation-menu">
-    <div class="menu-modal">
-      <div class="menu-modal-header">
-        <h3 class="menu-modal-title">
-          <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg> メニュー
-        </h3>
-        <button id="menu-close-btn" class="close-btn" aria-label="メニューを閉じる">
-          <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-      <div class="menu-modal-body">
-        <div class="menu-item" id="nav-news">
-          <span>掲示板</span>
-          <svg class="menu-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
-        <div class="menu-item" id="nav-guide">
-          <span>初めての方へ</span>
-          <svg class="menu-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
-        <div class="menu-item" id="nav-schedule">
-          <span>活動日程</span>
-          <svg class="menu-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
-        <div class="menu-item" id="nav-sns">
-          <span>SNS・お問い合わせ</span>
-          <svg class="menu-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
-        
-        <hr class="menu-divider">
-        
-        <!-- メニュー内のインスタ・Twitter・メールリンク -->
-        <a href="https://instagram.com/your_account" target="_blank" rel="noopener noreferrer" class="menu-item-sns">
-          <svg class="menu-sns-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          <span>インスタグラム</span>
-        </a>
-        <a href="https://twitter.com/your_account" target="_blank" rel="noopener noreferrer" class="menu-item-sns">
-          <svg class="menu-sns-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-          <span>Twitter (X)</span>
-        </a>
-        <a href="mailto:your_email@domain.com" class="menu-item-sns">
-          <svg class="menu-sns-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          <span>メールでお問い合わせ</span>
-        </a>
-
-        <hr class="menu-divider">
-        <button id="menu-bottom-close-btn" class="menu-bottom-close-btn">
-          閉じる
-        </button>
-      </div>
+  <!-- Menu Overlay -->
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-content">
+      <button class="menu-close" onclick="toggleMenu()" aria-label="閉じる">✕</button>
+      <nav>
+        <a href="#news"     onclick="goTo('news')">掲示板</a>
+        <a href="#guide"    onclick="goTo('guide')">初めてガイド</a>
+        <a href="#schedule" onclick="goTo('schedule')">スケジュール</a>
+        <a href="#sns"      onclick="goTo('sns')">SNS</a>
+      </nav>
     </div>
   </div>
 
-  <!-- ==========================================
-       掲示板詳細モーダル (もっと見るクリック用)
-       ========================================== -->
-  <div id="news-modal" class="navigation-menu">
-    <div class="menu-modal">
-      <div class="menu-modal-header">
-        <h3 class="menu-modal-title">
-          <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg> 掲示板詳細
-        </h3>
-        <button id="news-modal-close-btn" class="close-btn" aria-label="掲示板詳細を閉じる">
-          <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-      <div class="menu-modal-body">
-        <p class="modal-detail-text">
-          7月3日に開催される大学祭にて、アカペラサークルの屋外特設ステージが決定しました！<br><br>
-          ステージ発表への参加締め切りは6月30日までとなっております。メンバーの皆さんは期日までに入力フォームより曲目とパートの申請をお願いいたします。
-        </p>
-        <button id="news-modal-bottom-close-btn" class="menu-bottom-close-btn">
-          閉じる
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       JavaScript：アクション制御
-       ========================================== -->
   <script src="main.js"></script>
 </body>
 </html>

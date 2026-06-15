@@ -1,1260 +1,605 @@
-/* ==========================================
-       1. ベース of スタイル設定 (Tailwindなし)
-       ========================================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #F8FAF7;
-      overflow-x: hidden;
-      font-family: "Zen Maru Gothic", sans-serif;
-      color: #422C1D; /* カンプ指定の焦げ茶色 */
-    }
-/* ==========================================
-       2. スマホメインフレーム
-       ========================================== */
-    .main-container {
-      position: relative;
-      width: 100%;
-      max-width: 390px;
-      margin: 0 auto;
-      min-height: 100vh; /* 本番公開ではページ全体を自然にスクロールさせます */
-      background-color: #F8FAF7;
-      box-shadow: none;
-      border-radius: 0px; /* 背景の角を丸くしないよう直角に変更しました */
-      overflow-y: visible;
-      overflow-x: hidden;
-      border: none;
-      z-index: 10;
-      scroll-behavior: smooth;
-    }
-
-    /* スマホ枠内のスクロールバーを非表示にする設定 */
-    .main-container::-webkit-scrollbar {
-      display: none;
-    }
-    .main-container {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    /* ==========================================
-       3. ヘッダー / トップビジュアル (390px × 847px)
-       ========================================== */
-    .top-header {
-      position: relative;
-      width: 100%;
-      min-height: 847px;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      padding: 24px;
-      overflow: hidden;
-      z-index: 1; /* 重なり順を下にして、次のセクションが覆い被さるようにします */
-      background-color: #F8FAF7;
-      /* 立体効果のための透視投影空間（3D）を作成 */
-      perspective: 1000px;
-    }
-
-    /* 【異世界 3D ズーム背景のCSS設定】 */
-    .top-bg-image {
-      position: absolute;
-      inset: 0;
-      background-image: url('Topbg.png'), url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800');
-      background-size: cover;
-      background-position: bottom;
-      transform-origin: center bottom; /* 森の奥深く（やや下寄り）をズームの中心にします */
-      will-change: transform, filter;
-      z-index: 1;
-    }
-
-    /* 夢幻的な空気を醸し出すエメラルドとオーロラの霧レイヤー */
-    .sky-glow {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0) 10%, rgba(51, 173, 139, 0.15) 50%, rgba(244, 143, 177, 0.15) 100%);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .light-filter {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(255, 255, 255, 0.05);
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    /* 木漏れ日の揺らぎアニメーション */
-    @keyframes komorebi {
-      0%, 100% { opacity: 0.15; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(1.06); }
-    }
-
-    .komorebi-bg {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(254, 243, 199, 0.1);
-      animation: komorebi 12s ease-in-out infinite;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    /* 【幻想的な光の粒子・胞子レイヤー】
-       それぞれ深さが違う3D位置に配置します
-    */
-    .magical-particles {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      will-change: transform, opacity;
-      transform-origin: center center;
-    }
-
-    /* 【手前をかすめる大きなボケ葉レイヤー】
-       茂みをかき分けて進むときの奥行きを、超広角な周辺ボケでシミュレートします
-    */
-    .foreground-leaves {
-      position: absolute;
-      inset: -50px;
-      /* 画面四隅に配置された大きくぼやけた新緑の影 */
-      background: radial-gradient(circle, transparent 40%, rgba(15, 46, 27, 0.45) 100%);
-      pointer-events: none;
-      z-index: 15;
-      will-change: transform, opacity, filter;
-      transform-origin: center center;
-    }
-
-    /* MENUボタンコンテナ */
-    .menu-container {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 30; /* ホワイトアウト(35)の背後に配置して一緒に真っ白にします */
-      padding-top: 12px;
-      padding-right: 8px;
-    }
-
-    .menu-btn {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background-color: #422C1D; /* menuBrown */
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      outline: none;
-    }
-
-    .menu-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .menu-btn:active {
-      transform: scale(0.95);
-    }
-
-    .menu-btn-lines {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      margin-bottom: 2px;
-      margin-top: 4px;
-    }
-
-    .menu-btn-lines .line {
-      width: 20px;
-      height: 1.5px;
-      background-color: #ffffff;
-      border-radius: 9999px;
-    }
-
-    .menu-btn-text {
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      transform: scale(0.9);
-    }
-
-    /* 【タイトルエリア：手前にすり抜ける設定】
-       スクロール時にJSで scale(拡大) と opacity(薄くなる) をリアルタイム連動させます。
-    */
-    .header-content {
-      position: relative;
-      z-index: 10;
-      margin-top: 128px;
-      padding-left: 16px;
-      padding-right: 16px;
-      will-change: transform, opacity;
-    }
-
-    .main-title {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: 0.15em;
-      color: #422C1D;
-      line-height: 1;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-      margin-bottom: 28px;
-      user-select: none;
-    }
-
-    .sub-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: #57534e; /* stone-600 */
-      line-height: 1.625;
-      letter-spacing: 0.15em;
-    }
-
-    /* 下部スクロールボタン */
-    .indicator-container {
-      width: 100%;
-      margin-bottom: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-      will-change: opacity;
-    }
-
-    .scroll-arrow {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 10px;
-      border-radius: 50%;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .scroll-arrow:hover {
-      background-color: #F8FAF7;
-    }
-
-    .arrow-icon {
-      width: 16px;
-      height: 16px;
-      color: #4e7524; /* forest-700 */
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .scroll-arrow {
-      animation: bounce 2.5s infinite;
-    }
-
-    /* 【一瞬白くなる光彩ワープ用オーバーレイ】
-       中心から周囲に向かって強いホワイトアウトのブルーム光が膨張するように
-       放射状グラデーション（円形）を重ね合わせます。
-    */
-    #whiteout-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%);
-      background-color: #F8FAF7; /* フォールバック用のソリッドホワイト */
-      background-blend-mode: normal;
-      pointer-events: none;
-      z-index: 35;
-      opacity: 0;
-      will-change: opacity, transform;
-      transform-origin: center center;
-    }
-
-    /* ==========================================
-       共通コンポーネント
-       ========================================== */
-    .section-heading {
-      display: flex;
-      align-items: flex-end;
-      align-self: flex-start;
-      width: 100%;
-      margin-bottom: 24px;
-      padding-left: 4px;
-    }
-
-    .section-frag {
-      position: relative;
-      width: 24px;
-      height: 42px;
-      margin-right: 6px;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-
-    .section-frag::before {
-      content: "";
-      position: absolute;
-      left: 2px;
-      bottom: 0;
-      width: 2.5px;
-      height: 38px;
-      background-color: #422C1D;
-      border-radius: 1px;
-    }
-
-    .section-frag::after {
-      content: "";
-      position: absolute;
-      left: 4.5px;
-      top: 4px;
-      width: 0;
-      height: 0;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-left: 13px solid #E57373;
-    }
-
-    .section-headingtext {
-      font-size: 36px;
-      font-weight: 700;
-      color: #422C1D;
-      letter-spacing: 0.05em;
-      line-height: 1.1;
-    }
-
-    /* ==========================================
-       4. 掲示板セクション (指定サイズ: 350px × 579px)
-       ========================================== */
-    .news-section {
-      max-width: 350px;
-      min-height: 579px;
-      width: calc(100% - 40px);
-      margin: 40px auto; 
-      border: 1px solid #42301D; 
-      background-color: #F8FAF7; 
-      border-radius: 0px; 
-      
-      padding: 36px 20px 32px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      position: relative;
-      box-sizing: border-box;
-      flex-shrink: 0;
-      z-index: 2; /* トップヘッダー(1)より高くして、上に重なりながら上がってくるようにします */
-    }
-
-    /* 掲示板画像 (news-image) */
-    .news-image {
-      width: 100%;
-      height: 196px;
-      object-fit: cover;
-      border-radius: 20px;
-      border: 3px solid #42301D; 
-      box-shadow :0 4px 10px rgba(66, 44, 29, 0.08);
-      margin-bottom: 24px;
-    }
-
-    /* 掲示板テキスト (news-text) */
-    .news-text {
-      font-size: 16px;
-      font-weight: 700;
-      color: #42301D;
-      line-height: 1.8;
-      text-align: center;
-      letter-spacing: 0.03em;
-    }
-
-    /* もっと見るボタンコンテナ (more-button-container) */
-    .pill-button-container {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end; /* 画像とピッタリ揃うよう右寄せにする */
-      margin-top: 32px; /* カンプ同様テキストから適度な位置に持ち上げました */
-    }
-
-    
-    /* ボタンテキスト (button-text) */
-    .button-text {
-      color: #F8FAF7;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      line-height: 1;
-    }
-
-    /* ボタン右側の白丸 (button-circle) */
-    .button-circle {
-      width: 24px;
-      height: 24px;
-      background-color: #F8FAF7;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: 8px;
-    }
-
-    /* 白丸の中の下向き矢印 (▼) 
-       カンプ画像「image_2c6564.png」を完全に再現するため、ポリゴンサイズを最適化
-    */
-    .button-arrow {
-      width: 10px;
-      height: 10px;
-      display: block;
-    }
-
-    /* ==========================================
-       5. 初めてガイド ＆ 8. SNS・フッター 共通背景設定
-       ========================================== */
-    .guide-section, .sns-footer {
-      /* 【VSCodeローカル開発・後からの背景画像差し替えポイント】
-        あとで「初めてガイド」と「SNS」に全く同じオリジナル画像（例: bg_watercolor.png など）を
-        当てたい場合は、以下の url('...') のパスをご希望のファイル名に書き換えてください。
-        
-        例: url('bg_watercolor.png')
-        
-        現在は高品質な水彩紙のテクスチャの上に、美しいミントグリーン #33AD8B を
-        「乗算ブレンド(multiply)」して瑞々しい水彩画テクスチャを再現しています。
-      */
-      background-image: 
-        linear-gradient(135deg, rgba(51, 173, 139, 0.94) 0%, rgba(35, 143, 112, 0.97) 100%),
-        url('https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=80&w=800'); 
-      background-blend-mode: multiply;
-      background-size: cover;
-      background-position: center;
-    }
-
-    /* ==========================================
-       5. 初めてガイドセクション (指定サイズ: 390px × 735px)
-       ========================================== */
-    .guide-section {
-      width: 100%;
-      max-width: 390px;
-      min-height: 735px;
-      margin: 0 auto;
-      
-      /* 右上の角だけ20px of 角丸 */
-      border-top-right-radius: 20px;
-      border-top-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-bottom-left-radius: 0px;
-
-      position: relative;
-      padding: 36px 20px 32px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      box-sizing: border-box;
-      flex-shrink: 0;
-      z-index: 3; /* 重ね合わせ用：掲示板(2)より上 */
-    }
-
-    /* 見出しエリア */
-    .section-heading {
-      display: flex;
-      align-items: flex-end;
-      align-self: flex-start;
-      width: 100%;
-      margin-bottom: 24px;
-      padding-left: 4px;
-      z-index: 10;
-    }
-
-    /* ピンクの三角フラッグ (section-frag) - 棒つき再現 */
-    .section-frag {
-      position: relative;
-      width: 24px;
-      height: 42px;
-      margin-right: 6px;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-
-    .section-frag::before {
-      content: "";
-      position: absolute;
-      left: 2px;
-      bottom: 0;
-      width: 2.5px;
-      height: 38px;
-      background-color: #422C1D;
-      border-radius: 1px;
-    }
-
-    .section-frag::after {
-      content: "";
-      position: absolute;
-      left: 4.5px;
-      top: 4px;
-      width: 0;
-      height: 0;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-left: 13px solid #E57373;
-    }
-
-    /* 見出しテキスト 36px */
-    .section-headingtext {
-      font-size: 36px;
-      font-weight: 700;
-      color: #422C1D;
-      letter-spacing: 0.05em;
-      line-height: 1.1;
-    }
-
-    /* S字カーブの点線小道 (SVG) */
-    .guide-road {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* 各ステップの共通配置コンテナ */
-    .step-container {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 10;
-    }
-
-    /* 各ボタンの配置座標 */
-    .step-1 {
-      top: 135px;
-      right: 48px;
-    }
-
-    .step-2 {
-      top: 310px;
-      left: 165px; /* 中央 */
-    }
-
-    .step-3 {
-      top: 490px;
-      left: 48px;
-    }
-
-    /* ステップラベル (Step 1, Step 2, Step 3) */
-    .step-label {
-      font-size: 14px;
-      font-weight: 700;
-      color: #422C1D;
-      margin-bottom: 6px;
-      letter-spacing: 0.05em;
-    }
-
-    /* ティールグリーンの楕円ボタン */
-    .step-btn {
-      width: 96px;
-      height: 48px;
-      border-radius: 50% / 50%; /* 完全な楕円形 */
-      background-color: #35B5AA;
-      border: 2px solid #ffffff;
-      box-shadow: 0 4px 10px rgba(53, 181, 170, 0.25);
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      outline: none;
-    }
-
-    .step-btn:hover {
-      transform: scale(1.06);
-      background-color: #2da096;
-    }
-
-    .step-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* Step 3 of ボタン左上に乗る小さなピンクフラッグ */
-    .step-mini-frag {
-      position: absolute;
-      left: -2px;
-      top: 12px;
-      width: 14px;
-      height: 24px;
-      pointer-events: none;
-    }
-
-    .step-mini-frag::before {
-      content: "";
-      position: absolute;
-      left: 1px;
-      bottom: 0;
-      width: 1.5px;
-      height: 22px;
-      background-color: #422C1D;
-    }
-
-    .step-mini-frag::after {
-      content: "";
-      position: absolute;
-      left: 2.5px;
-      top: 2px;
-      width: 0;
-      height: 0;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-left: 8px solid #E57373;
-    }
-
-    /* 各ステップをクリックしたときのポップアップ吹き出し */
-    .step-pop {
-      position: absolute;
-      background-color: #ffffff;
-      border: 1px solid #d2e6bb;
-      padding: 12px 16px;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-      width: 200px;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px) scale(0.95);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 40;
-    }
-
-    /* 吹き出しのしっぽ */
-    .step-pop::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-    }
-
-    /* 位置別の吹き出し配置と矢印の向き */
-    .step-1 .step-pop {
-      top: 10px;
-      right: 110px; /* 左側に表示 */
-    }
-    .step-1 .step-pop::after {
-      top: 22px;
-      right: -8px;
-      border-width: 8px 0 8px 8px;
-      border-color: transparent transparent transparent #ffffff;
-    }
-
-    .step-2 .step-pop {
-      top: -85px; /* 上側に表示 */
-      left: 50%;
-      transform: translateX(-50%) translateY(10px) scale(0.95);
-    }
-    .step-2 .step-pop::after {
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 8px 8px 0 8px;
-      border-color: #ffffff transparent transparent transparent;
-    }
-
-    .step-3 .step-pop {
-      top: 10px;
-      left: 110px; /* 右側に表示 */
-    }
-    .step-3 .step-pop::after {
-      top: 22px;
-      left: -8px;
-      border-width: 8px 8px 8px 0;
-      border-color: transparent #ffffff transparent transparent;
-    }
-
-    /* 表示時のアクティブクラス */
-    .step-pop.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
-    .step-2 .step-pop.open {
-      transform: translateX(-50%) translateY(0) scale(1);
-    }
-
-    .step-pop p {
-      font-size: 11px;
-      line-height: 1.5;
-      color: #57534e;
-    }
-
-    /* 下部アクションボタンコンテナ */
-    .guide-action-container {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end; /* 右寄せ */
-      position: absolute;
-      bottom: 32px;
-      right: 20px;
-      z-index: 10;
-    }
-
-    /* 一歩踏み出してみる...？ボタン */
-   
-
-    /* ==========================================
-       6. スケジュールセクション (指定サイズ: 390px × 1287px)
-       ========================================== */
-    .schedule-section {
-      width: 100%;
-      max-width: 390px;
-      min-height: 1287px;
-      margin: 0 auto;
-      
-      /* 淡いパステルスカイブルー背景 */
-      background-color: #E7F6F8;
-      
-      /* 左上だけ20px of 角丸 ＆ その他は直角 */
-      border-top-left-radius: 20px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-bottom-left-radius: 0px;
-
-      /* 前のguide-sectionとピッタリ重なり合って背景を埋める */
-      margin-top: -20px;
-      position: relative;
-      padding: 36px 20px 32px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      box-sizing: border-box;
-      flex-shrink: 0;
-      z-index: 4; /* guide-section(3)のすぐ上に綺麗に重なるように設定 */
-    }
-
-    
-    /* 曜日カードコンテナ */
-    .schedule-cards-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 20px; /* カード同士の間隔 */
-      margin-top: 8px;
-      align-items: center;
-    }
-
-    /* 各曜日カードコンテナ (Mon, Tue, etc.) 
-       曜日のサイズ「351px × 173px」にピクセルパーフェクト固定。
-    */
-    .day-card {
-      width: 100%;
-      max-width: 351px;
-      min-height: 173px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(45, 172, 163, 0.06);
-      flex-shrink: 0;
-    }
-
-    /* 曜日の緑ヘッダー (Mon, Tue) 
-       高さ44pxに固定、テキストを上下左右中央寄せ
-    */
-    .day-header {
-      background-color: #2DACA3; /* カンプのティールグリーン */
-      color: #ffffff;
-      font-size: 20px;
-      font-weight: 900;
-      text-align: center;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      letter-spacing: 0.15em;
-      flex-shrink: 0;
-    }
-
-    /* スケジュール詳細の白カード部分 (Mon-about) 
-       高さ129px（44px + 129px = 173px）に固定し、パディングを広げカンプ通りの余白を再現
-    */
-    .day-about {
-      background-color: #ffffff;
-      min-height: 129px;
-      padding: 24px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 18px; /* 各行（チーム / 場所）の間隔を広げカンプの比率に一致 */
-      flex-shrink: 0;
-    }
-
-    /* 各行 (team / place) */
-    .about-row {
-      display: flex;
-      align-items: center;
-    }
-
-    /* ラベル部分 (「チーム」「場所」) */
-    .row-label {
-      font-size: 14px;
-      font-weight: 700;
-      color: #57534e; /* stone-600 */
-      width: 52px; /* 位置をピッタリ揃えるための固定幅 */
-      flex-shrink: 0;
-      line-height: 1;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    /* 縦の区切り線（Line）をCSSで完全に自動描画 */
-    .row-divider {
-      width: 1.5px;
-      height: 14px;
-      background-color: #E7E5E4; /* stone-200 */
-      margin: 0 16px;
-      flex-shrink: 0;
-    }
-
-    /* 変動するスケジュール内容テキスト (「1. 2. 3」「大連」) */
-    .row-value {
-      font-size: 14px;
-      font-weight: 500;
-      color: #292524; /* stone-800 */
-      line-height: 1.2;
-    }
-
-
-    /* ==========================================
-       7. 「頑張ってみる？」セクション (指定サイズ: 390px × 373px)
-       ========================================== */
-    .apply-section {
-      /* 左右に不自然な白地（隙間）が出ないよう、幅をフレームいっぱいの「390px」に設定。 */
-      width: 100%; 
-      max-width: 390px;
-      min-height: 373px;
-      
-      /* 上下のセクションとの境界にブラウザ描画上のズレ（白い隙間）が発生するのを防ぐため、上下に -1px の微調整マージンを設定。 */
-      margin: -1px auto -1px auto; 
-      
-      /* 美しい新緑と木漏れ日の水彩画風背景 */
-      background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&q=80&w=600');
-      background-size: cover;
-      background-position: center;
-      
-      /* 角丸を一切適用しないシャープな直角デザイン */
-      border-radius: 0px;
-
-      position: relative;
-      padding: 40px 20px 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      box-sizing: border-box;
-      flex-shrink: 0;
-      z-index: 5; /* スケジュール(4)のすぐ下にスムーズに接続 */
-    }
-
-    /* CSSで描く、ふわふわ浮かぶ白い光のドット（玉ボケ）ときらきらエフェクト */
-    .apply-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: 
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.7) 4px, transparent 12px),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.8) 6px, transparent 16px),
-        radial-gradient(circle at 45% 75%, rgba(255, 255, 255, 0.6) 5px, transparent 14px),
-        radial-gradient(circle at 75% 85%, rgba(255, 255, 255, 0.7) 8px, transparent 20px);
-      background-size: 100% 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* 頑張ってみる？ボタン */
-    .apply-btn {
-      position: relative;
-      background-color: rgba(255, 255, 255, 0.95);
-      border: none;
-      border-radius: 9999px; /* 楕円カプセル */
-      width: 300px;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 24px rgba(66, 44, 29, 0.12);
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      margin-top: 60px; /* カンプ比率に合わせた配置高さ */
-      outline: none;
-      z-index: 2;
-    }
-
-    .apply-btn:hover {
-      transform: scale(1.04) translateY(-3px);
-      background-color: #ffffff;
-      box-shadow: 0 12px 30px rgba(66, 44, 29, 0.18);
-    }
-
-    .apply-btn:active {
-      transform: scale(0.97) translateY(0px);
-    }
-
-    /* カンプ通りの太くて愛らしい「頑張ってみる？」テキスト */
-    .apply-btn-text {
-      font-size: 32px;
-      font-weight: 900;
-      color: #422C1D; /* 焦げ茶色 */
-      letter-spacing: 0.05em;
-      line-height: 1;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
-    }
-
-    /* 右上の刺さる茶色の太い矢印 (SVG) */
-    .apply-arrow-svg {
-      position: absolute;
-      right: 14px;
-      top: -18px;
-      width: 48px;
-      height: 48px;
-      pointer-events: none;
-      transform: rotate(0deg);
-      filter: drop-shadow(0 2px 4px rgba(66, 44, 29, 0.1));
-    }
-
-    /* 下部：困ったこと・相談したいことはいつでも！カプセル */
-    .message-capsule {
-      background-color: rgba(255, 255, 255, 0.85); /* 半透明の白 */
-      border-radius: 18px; /* 丸みのあるカプセル形状 */
-      width: 340px;
-      padding: 10px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      margin-top: auto; /* コンテナの最下部にぴったりフィット */
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      z-index: 2;
-    }
-
-    .message-capsule p {
-      font-size: 11px;
-      font-weight: 700;
-      color: #422C1D;
-      line-height: 1.4;
-      text-align: center;
-      letter-spacing: 0.03em;
-    }
-
-
-    /* ==========================================
-       8. SNS ＆ フッター (指定サイズ: 390px × 271px)
-       ========================================== */
-    .sns-footer {
-      width: 100%;
-      max-width: 390px;
-      min-height: 271px; /* 最後のセクションサイズ 390px × 271px にピクセルパーフェクト調整 */
-      margin: 0 auto;
-      
-      /* 直角角（角丸なし）の設計を徹底 */
-      border-radius: 0px;
-      
-      /* 高さ271pxの内部に美しくマウントするためのタイトなパディング設計 */
-      padding: 24px 20px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      box-sizing: border-box;
-      flex-shrink: 0;
-      z-index: 6;
-      position: relative;
-    }
-
-    
-
-    /* アイコンコンテナ */
-    .sns-icons-container {
-      width: 100%;
-      max-width: 320px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin-top: 4px;
-      margin-bottom: 24px;
-    }
-
-    /* リンク全体を包む a タグのスタイル */
-    .sns-link-anchor {
-      text-decoration: none;
-      outline: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /*
-       外部CDN障害でも、プレビュー環境で100%確実に表示されるよう、
-       すべてのアイコンを美しいインラインSVG線画へ完全に置き換えました。
-    */
-    .sns-link-icon {
-      width: 44px; /* 大きく愛らしいカンプ比率サイズ */
-      height: 44px;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-    }
-
-    /* ホバー（タップ）時にバウンスするインタラクション効果 */
-    .sns-link-anchor:hover .sns-link-icon {
-      transform: scale(1.15) rotate(4deg);
-    }
-
-    .sns-link-anchor:active .sns-link-icon {
-      transform: scale(0.9);
-    }
-
-    /* コピーライト ＆ アカウントテキスト (@2026yuumi) */
-    .copyright-text {
-      font-size: 15px; /* カンプ通りのバランスに調整 */
-      font-weight: 700;
-      color: #422C1D;
-      opacity: 0.8;
-      letter-spacing: 0.03em;
-      line-height: 1;
-    }
-
-
-    /* ==========================================
-       9. 各種モーダル (共通設計)
-       ========================================== */
-    .navigation-menu {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-left: 24px;
-      padding-right: 24px;
-      
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .navigation-menu.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .menu-modal {
-      background-color: #ffffff;
-      width: 100%;
-      max-width: 300px;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #d2e6bb;
-      
-      transform: scale(0.95);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .navigation-menu.open .menu-modal {
-      transform: scale(1);
-    }
-
-    .menu-modal-header {
-      background-color: #f5f9f0;
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #e8f2dc;
-    }
-
-    .menu-modal-title {
-      font-weight: 700;
-      font-size: 14px;
-      color: #422C1D;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .title-icon {
-      width: 16px;
-      height: 16px;
-      color: #4e7524;
-    }
-
-    .close-btn {
-      color: #a8a29e;
-      padding: 4px;
-      border-radius: 50%;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .close-btn:hover {
-      background-color: #f5f5f4;
-      color: #57534e;
-    }
-
-    .close-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    .menu-modal-body {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .menu-item {
-      text-align: left;
-      padding: 10px 16px;
-      border-radius: 12px;
-      color: #422C1D;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-    }
-
-    .menu-item:hover {
-      background-color: #f5f9f0;
-      color: #385517;
-    }
-
-    /* MENU内の各SNS用リンク項目のスタイル */
-    .menu-item-sns {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #422C1D;
-      font-weight: 700;
-      font-size: 12px;
-      text-decoration: none;
-      padding: 10px 16px;
-      border-radius: 12px;
-      transition: background-color 0.2s, color 0.2s;
-    }
-
-    .menu-item-sns:hover {
-      background-color: #f5f9f0;
-      color: #113D24;
-    }
-
-    .menu-sns-icon {
-      width: 16px;
-      height: 16px;
-      color: #422C1D;
-    }
-
-    .menu-divider {
-      border: none;
-      border-top: 1px solid #f5f5f4;
-      margin: 4px 0;
-    }
-
-    .menu-bottom-close-btn {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 16px;
-      background-color: #4e7524;
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 12px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.2s, transform 0.1s;
-      outline: none;
-    }
-
-    .menu-bottom-close-btn:hover {
-      background-color: #385517;
-    }
-
-    .menu-bottom-close-btn:active {
-      transform: scale(0.98);
-    }
-
-    .modal-detail-text {
-      font-size: 11px;
-      line-height: 1.8;
-      color: #57534e;
-      text-align: left;
-    }
-  
-    /* 共通カプセルボタン */
-    .pill-button {
-      background-color: #113D24;
-      border: none;
-      border-radius: 9999px;
-      padding: 6px 6px 6px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
-      box-shadow: 0 4px 6px rgba(17, 61, 36, 0.15);
-      outline: none;
-    }
-
-    .pill-button:hover {
-      background-color: #0b2d1a;
-    }
-
-    .pill-button:active {
-      transform: scale(0.97);
-    }
-
-    .pill-button--small {
-      width: 154px;
-    }
-
-    .pill-button--wide {
-      width: 215px;
-      background-color: #0F2E1B;
-      box-shadow: 0 4px 6px rgba(15, 46, 27, 0.15);
-    }
-
-    .pill-button--wide:hover {
-      background-color: #081e10;
-    }
-
-    .menu-chevron-icon {
-      width: 14px;
-      height: 14px;
-      opacity: 0.5;
-      color: currentColor;
-    }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #c8c8c8;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 390px;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden;
+  background-color: #f8faf7;
+}
+
+/* ===== TOP SECTION ===== */
+.s-top {
+  position: relative;
+  height: 847px;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.s-top__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transform-origin: center bottom;
+  will-change: transform, filter;
+}
+
+.s-top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.65) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: var(--top-whiteout, 0);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.tpo-text {
+  position: absolute;
+  left: 55px;
+  top: 299px;
+  width: 288px;
+  height: 153px;
+}
+
+.tpo-text__title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 48px;
+  color: #42301d;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.tpo-text__sub {
+  position: absolute;
+  left: 50%;
+  top: 95px;
+  transform: translateX(-50%);
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 20px;
+  color: #5c5c5c;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tpo-text__sub p { line-height: normal; }
+
+.menu-btn {
+  position: absolute;
+  left: 318px;
+  top: 38px;
+  width: 51px;
+  height: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-btn__text {
+  position: absolute;
+  left: 50%;
+  top: 28px;
+  transform: translateX(-50%);
+  font-family: 'Arimo', sans-serif;
+  font-size: 12px;
+  color: #f8faf7;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ===== NEWS SECTION ===== */
+.s-news {
+  position: relative;
+  background: #f8faf7;
+  height: 579px;
+}
+
+.news-heading {
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  width: 350px;
+  height: 81px;
+  overflow: hidden;
+}
+
+.news-heading__frag {
+  position: absolute;
+  left: 6px;
+  top: 43px;
+  width: 28.644px;
+  height: 38px;
+}
+
+.news-heading__title {
+  position: absolute;
+  left: 43px;
+  top: 32px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #5c5c5c;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.news-image {
+  position: absolute;
+  left: 20px;
+  top: 84px;
+  width: 351px;
+  height: 234px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-image__border {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #42301d;
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.news-text {
+  position: absolute;
+  left: 20px;
+  top: 322px;
+  width: 324px;
+  text-align: center;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #42301d;
+  line-height: 28px;
+}
+
+.more-btn {
+  position: absolute;
+  left: 184px;
+  top: 405px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  background: #0d401d;
+  color: #f8faf7;
+  border-radius: 30px;
+  padding: 0 20px;
+  height: 38px;
+  width: 168px;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-circle { width: 24px; height: 24px; flex-shrink: 0; }
+
+/* ===== GUIDE SECTION ===== */
+.s-guide {
+  position: relative;
+  height: 735px;
+  overflow: hidden;
+}
+
+.s-guide__bg {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: -2px;
+  bottom: 0;
+  overflow: hidden;
+  border-top-right-radius: 30px;
+}
+
+.s-guide__bg img {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+  width: 599.53%;
+  height: 239.13%;
+  left: -329.7%;
+  top: -139.11%;
+}
+
+.guide-heading {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  width: 390px;
+  height: 86px;
+  overflow: hidden;
+}
+
+.guide-heading__frag-wrap {
+  position: absolute;
+  left: 10px;
+  top: 43px;
+  width: 28.644px;
+  height: 24.058px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guide-heading__frag-inner { transform: rotate(90.06deg) skewX(-1deg); }
+
+.guide-heading__line { position: absolute; left: 17px; top: 47px; }
+
+.guide-heading__title {
+  position: absolute;
+  left: 47px;
+  top: 37px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #5c5c5c;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.step-label {
+  position: absolute;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 24px;
+  color: #42301d;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.step1-label  { left: 280px; top: 107px; }
+.step1-circle { position: absolute; left: 280px; top: 135px; width: 64px; height: 44px; }
+
+.guide-path1 { position: absolute; left: 243px; top: 175px; width: 80px; height: 139px; }
+.guide-path1 > div { position: absolute; inset: -2.19% -6.38% -4.15% -2.05%; }
+
+.step2-label  { left: 175px; top: 271px; }
+.step2-circle { position: absolute; left: 168px; top: 299px; width: 82px; height: 57px; }
+
+.guide-path2 { position: absolute; left: 90px; top: 346px; width: 89px; height: 172px; }
+.guide-path2 > div { position: absolute; inset: -3.19% -2.71% -0.57% -6.74%; }
+
+.step3-frag   { position: absolute; left: 43px; top: 509px; width: 28.644px; height: 47px; }
+.step3-label  { left: 72px; top: 509px; }
+.step3-circle { position: absolute; left: 41px; top: 537px; width: 117px; height: 79px; }
+
+.try-btn {
+  position: absolute;
+  left: 107px;
+  top: 657px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: #0d401d;
+  color: #f8faf7;
+  border-radius: 30px;
+  padding: 0 20px;
+  height: 38px;
+  width: 263px;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+}
+
+/* ===== SCHEDULE SECTION ===== */
+.s-schedule {
+  position: relative;
+  height: 1287px;
+  overflow: hidden;
+  border-top-left-radius: 30px;
+}
+
+.s-schedule__bg-wrap {
+  position: absolute;
+  left: -2px;
+  top: 4px;
+  width: 395px;
+  height: 1283px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s-schedule__bg-inner {
+  transform: rotate(90deg);
+  width: 1283px;
+  height: 395px;
+  border-bottom-left-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.s-schedule__bg-inner img {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+  height: 360.76%;
+  left: 0;
+  top: -0.07%;
+  width: 148.19%;
+}
+
+.schedule-heading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 350px;
+  height: 81px;
+  overflow: hidden;
+}
+
+.schedule-heading__frag {
+  position: absolute;
+  left: 12px;
+  top: 32px;
+  width: 28.644px;
+  height: 38px;
+}
+
+.schedule-heading__title {
+  position: absolute;
+  left: 41px;
+  top: 32px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #5c5c5c;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.schedule-list {
+  position: absolute;
+  left: 23px;
+  top: 131px;
+  width: 351px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.schedule-item { height: 173px; position: relative; width: 100%; }
+
+.schedule-item__header {
+  position: absolute;
+  left: 0; top: 0;
+  width: 351px; height: 65px;
+  background: #33ad8b;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-item__header span {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: #f8faf7;
+  line-height: normal;
+}
+
+.schedule-item__body {
+  position: absolute;
+  left: 0; top: 65px;
+  width: 351px; height: 108px;
+  background: #f8faf7;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 20px;
+}
+
+.schedule-row { display: flex; align-items: center; gap: 12px; width: 100%; }
+
+.schedule-row__label {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 24px;
+  color: #42301d;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.schedule-row__value {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #42301d;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===== FIGHT SECTION ===== */
+.s-fight { position: relative; height: 373px; overflow: hidden; }
+
+.s-fight__bg { position: absolute; inset: 0; overflow: hidden; }
+
+.s-fight__bg img {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+  height: 179.36%;
+  left: -131.09%; top: -79.36%;
+  width: 231.09%;
+}
+
+.fight-btn {
+  position: absolute;
+  left: 53px; top: 120px;
+  width: 281px; height: 93px;
+  background: #f8faf7;
+  border-radius: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  color: #42301d;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+}
+
+.fight-message {
+  position: absolute;
+  left: 18px; top: 296px;
+  width: 350px; height: 57px;
+  background: #f8faf7;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fight-message__inner {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 16px;
+  color: #42301d;
+  text-align: center;
+  line-height: 30px;
+}
+
+.fight-arrow { position: absolute; left: 240px; top: 5px; width: 123px; height: 159px; }
+
+/* ===== SNS SECTION ===== */
+.s-sns { position: relative; height: 271px; overflow: hidden; }
+
+.s-sns__bg { position: absolute; left: 0; top: 0; width: 390px; height: 283px; overflow: hidden; }
+
+.s-sns__bg img {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+  height: 479.95%;
+  left: -152.31%; top: -265.42%;
+  width: 464.36%;
+}
+
+.sns-heading { position: absolute; left: 2px; top: 0; width: 388px; height: 82px; overflow: hidden; }
+
+.sns-heading__frag { position: absolute; left: 28px; top: 37px; width: 28.644px; height: 38px; }
+
+.sns-heading__title {
+  position: absolute;
+  left: 68px; top: 33px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #5c5c5c;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.sns-icons {
+  position: absolute;
+  left: 0; top: 119px;
+  width: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 29px;
+}
+
+.sns-icon { cursor: pointer; text-decoration: none; display: block; transition: opacity 0.2s; }
+.sns-icon:hover { opacity: 0.7; }
+
+.sns-handle {
+  position: absolute;
+  left: 50%; top: 236px;
+  transform: translateX(-50%);
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #42301d;
+  text-align: center;
+  width: 390px;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+/* ===== MENU OVERLAY ===== */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(66, 48, 29, 0.94);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active { opacity: 1; pointer-events: all; }
+
+.menu-content { text-align: center; position: relative; }
+
+.menu-close {
+  position: absolute;
+  top: -60px; right: -20px;
+  background: none; border: none;
+  color: #f8faf7;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+}
+
+.menu-content nav { display: flex; flex-direction: column; gap: 40px; }
+
+.menu-content nav a {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: 32px;
+  color: #f8faf7;
+  text-decoration: none;
+  transition: color 0.2s;
+  display: block;
+}
+
+.menu-content nav a:hover { color: #33ad8b; }
