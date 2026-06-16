@@ -275,3 +275,187 @@ body {
   white-space: nowrap;
   line-height: normal;
 }
+
+/* ===== Added interactions only: no layout coordinates changed ===== */
+.card {
+  transform-origin: center;
+}
+.card.is-growing {
+  animation: card-bounce 0.45s ease-out;
+}
+
+.illus-switch {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+.illus-box.has-illus-images {
+  border: none;
+}
+.illus-box.has-illus-images > svg {
+  opacity: 0;
+}
+.illus-box.has-illus-images .illus-switch {
+  display: block;
+}
+.step-illus {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: center;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.step-illus--after {
+  opacity: 0;
+  transform: scale(0.96);
+}
+.card.is-done .step-illus--before {
+  opacity: 0;
+  transform: scale(0.98);
+}
+.card.is-done .step-illus--after {
+  opacity: 1;
+  transform: scale(1);
+}
+.card.is-growing .step-illus--after {
+  animation: image-grow 0.45s ease-out both;
+}
+
+.growth-particles {
+  position: absolute;
+  left: 62px;
+  top: 108px;
+  width: 160px;
+  height: 96px;
+  overflow: visible;
+  pointer-events: none;
+}
+.growth-particles span {
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  width: 12px;
+  height: 8px;
+  background: #F8FAF7;
+  border-radius: 70% 20% 70% 20%;
+  opacity: 0;
+  transform: translate(0, 0) rotate(-18deg) scale(0.6);
+  animation: float-leaf 0.85s ease-out both;
+}
+.growth-particles span:nth-child(1) {
+  --leaf-x: -18px;
+  animation-delay: 0.05s;
+}
+.growth-particles span:nth-child(2) {
+  --leaf-x: 10px;
+  width: 10px;
+  height: 7px;
+  background: #DDEFE6;
+  animation-delay: 0.14s;
+}
+.growth-particles span:nth-child(3) {
+  --leaf-x: 22px;
+  width: 9px;
+  height: 9px;
+  border-radius: 70% 30% 70% 30%;
+  animation-delay: 0.22s;
+}
+.growth-particles span:nth-child(4) {
+  --leaf-x: -6px;
+  width: 11px;
+  height: 8px;
+  background: #F6EEF0;
+  animation-delay: 0.29s;
+}
+
+.forest-finale {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4;
+}
+.forest-finale span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(var(--scale, 1));
+  animation: forest-finale-float 2s ease-out var(--delay, 0s) forwards;
+  will-change: transform, opacity;
+}
+.forest-finale .finale-note {
+  color: var(--color, #33AD8B);
+  font-family: 'Arimo', sans-serif;
+  font-size: var(--size, 18px);
+  line-height: 1;
+}
+.forest-finale .finale-leaf,
+.forest-finale .finale-petal {
+  width: 13px;
+  height: 8px;
+}
+.forest-finale .finale-leaf {
+  background: #33AD8B;
+  border-radius: 75% 20% 75% 25%;
+}
+.forest-finale .finale-petal {
+  background: #E16B8C;
+  border-radius: 75% 25% 75% 25%;
+}
+
+@keyframes card-bounce {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.95); }
+  68% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes image-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float-leaf {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-18deg) scale(0.6);
+  }
+  18% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--leaf-x, 12px), -58px) rotate(24deg) scale(1);
+  }
+}
+
+@keyframes forest-finale-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(var(--rot, -8deg)) scale(var(--scale, 1));
+  }
+  16% {
+    opacity: var(--peak, 0.65);
+  }
+  55% {
+    opacity: calc(var(--peak, 0.65) * 0.82);
+    transform: translate3d(var(--drift-mid, 10px), -72px, 0) rotate(var(--rot-mid, 8deg)) scale(var(--scale, 1));
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift-end, -6px), -150px, 0) rotate(var(--rot-end, 14deg)) scale(var(--scale, 1));
+  }
+}
