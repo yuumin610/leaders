@@ -217,13 +217,33 @@
       <div class="s-fight__bg">
         <img src="image/fight-bg.jpg" alt="">
       </div>
-      <svg class="fight-arrow" fill="none" viewBox="0 0 123 159" preserveAspectRatio="none">
-        <path d="M61.8304 90.0604L91.9368 110.15L61.0536 128.762L61.8304 90.0604Z" fill="#42301D"/>
-        <path d="M97.9668 56L104.999 61.1218L80.0543 102.496L73.022 97.3738L97.9668 56Z" fill="#42301D"/>
-      </svg>
       <button type="button" class="fight-btn">
-       楽しむ準備はできた？
-     </button>
+        <svg class="fight-btn__forest" viewBox="0 0 54 38" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="fightForestGreen" x1="11" y1="6" x2="39" y2="31" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#5CC7A5"/>
+              <stop offset="1" stop-color="#33AD8B"/>
+            </linearGradient>
+          </defs>
+          <path d="M8 32h38" stroke="#B88A62" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M14 32v-8M27 32v-10M40 32v-8" stroke="#B88A62" stroke-width="2.8" stroke-linecap="round"/>
+          <ellipse cx="14" cy="20" rx="6.8" ry="8.2" fill="#5CC7A5"/>
+          <ellipse cx="10.8" cy="24" rx="5.3" ry="6.3" fill="#33AD8B"/>
+          <ellipse cx="17.8" cy="24" rx="5.5" ry="6.5" fill="url(#fightForestGreen)"/>
+          <ellipse cx="27" cy="16.5" rx="8.4" ry="10.4" fill="url(#fightForestGreen)"/>
+          <ellipse cx="22.8" cy="22.5" rx="6.5" ry="7.5" fill="#33AD8B"/>
+          <ellipse cx="31.2" cy="23" rx="6.5" ry="7.4" fill="#5CC7A5"/>
+          <ellipse cx="40" cy="19.8" rx="7.2" ry="8.6" fill="#5CC7A5"/>
+          <ellipse cx="36.5" cy="24.3" rx="5.5" ry="6.2" fill="#33AD8B"/>
+          <ellipse cx="43.5" cy="24.2" rx="5.5" ry="6.2" fill="url(#fightForestGreen)"/>
+        </svg>
+        <span class="fight-btn__label">楽しむ準備はできた？</span>
+        <span class="fight-arrow" aria-hidden="true">
+          <svg viewBox="0 0 18 18" focusable="false">
+            <path d="M6.5 3.5L12 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
       <div class="fight-message">
         <div class="fight-message__inner">
           <p>困ったこと・相談したいことはいつでも！</p>

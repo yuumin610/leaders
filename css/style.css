@@ -501,19 +501,133 @@ body {
   position: absolute;
   left: 53px; top: 120px;
   width: 281px; height: 93px;
-  background: #c5c5c5;
-  border-radius: 140px;
+  background: #f8faf7;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 0 12px 0 15px;
   font-family: 'Zen Kaku Gothic New', sans-serif;
-  font-weight: 500;
-  font-size: 36px;
+  font-weight: 600;
+  font-size: 16px;
   color: #42301d;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  border: none;
+  border: 1px solid rgba(184, 138, 98, .26);
+  box-shadow: 0 6px 18px rgba(66, 48, 29, .12), 0 2px 5px rgba(184, 138, 98, .10), inset 0 1px 0 rgba(255, 255, 255, .9);
+  transform: translateY(0);
+  transition: background-color .4s ease, color .4s ease, border-color .4s ease, transform .22s ease, box-shadow .22s ease;
+}
+
+.fight-btn.is-pressed {
+  animation: fightBtnPress .48s ease;
+}
+
+.fight-btn.is-complete {
+  background: #33ad8b;
+  color: #f8faf7;
+  border-color: rgba(248, 250, 247, .34);
+}
+
+.fight-btn__forest {
+  width: 38px;
+  height: 29px;
+  flex: 0 0 auto;
+}
+
+.fight-btn__forest path,
+.fight-btn__forest ellipse {
+  transition: fill .4s ease, stroke .4s ease;
+}
+
+.fight-btn.is-complete .fight-btn__forest path {
+  stroke: rgba(248, 250, 247, .82);
+}
+
+.fight-btn.is-complete .fight-btn__forest ellipse {
+  fill: rgba(248, 250, 247, .9);
+}
+
+.fight-btn__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.fight-arrow {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #ddefd9;
+  color: #33ad8b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .62), 0 1px 4px rgba(51, 173, 139, .10);
+  transition: background-color .4s ease, color .4s ease, box-shadow .4s ease;
+}
+
+.fight-btn.is-complete .fight-arrow {
+  background: rgba(255, 255, 255, .2);
+  color: #f8faf7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);
+}
+
+.fight-arrow svg {
+  width: 17px;
+  height: 17px;
+}
+
+.fight-effect {
+  position: absolute;
+  left: var(--start-x);
+  top: var(--start-y);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) translate(0, 0) scale(.72) rotate(0deg);
+  animation: fightEffectFloat 1.9s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.fight-effect--ring {
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(248, 250, 247, .78);
+  box-shadow: 0 0 16px rgba(221, 239, 230, .46);
+  animation: fightHarmonyRing .72s ease-out forwards;
+  animation-delay: 0s;
+}
+
+.fight-effect--note {
+  color: var(--effect-color, #33ad8b);
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-size: var(--size, 20px);
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, .72);
+}
+
+.fight-effect--leaf,
+.fight-effect--petal {
+  width: var(--size, 17px);
+  height: calc(var(--size, 17px) * .62);
+  border-radius: 100% 0 100% 0;
+}
+
+.fight-effect--leaf {
+  background: var(--effect-color, #5cc7a5);
+}
+
+.fight-effect--petal {
+  background: var(--effect-color, #f3a6b8);
 }
 
 .fight-message {
@@ -535,7 +649,59 @@ body {
   line-height: 30px;
 }
 
-.fight-arrow { position: absolute; left: 240px; top: 5px; width: 123px; height: 159px; }
+.fight-message.is-bright {
+  animation: fightMessageGlow 1.05s ease;
+}
+
+@keyframes fightBtnPress {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 6px 18px rgba(66, 48, 29, .12), 0 2px 5px rgba(184, 138, 98, .10), inset 0 1px 0 rgba(255, 255, 255, .9);
+  }
+  42% {
+    transform: translateY(4px);
+    box-shadow: 0 3px 10px rgba(66, 48, 29, .10), 0 1px 3px rgba(184, 138, 98, .08), inset 0 1px 0 rgba(255, 255, 255, .9);
+  }
+}
+
+@keyframes fightEffectFloat {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) scale(.72) rotate(0deg);
+  }
+  16% {
+    opacity: .92;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--move-x), var(--move-y)) scale(1.08) rotate(var(--rotate));
+  }
+}
+
+@keyframes fightHarmonyRing {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.55);
+  }
+  18% {
+    opacity: .78;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(5.2);
+  }
+}
+
+@keyframes fightMessageGlow {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: none;
+  }
+  35% {
+    filter: brightness(1.08);
+    box-shadow: 0 0 18px rgba(248, 250, 247, .82), 0 5px 16px rgba(92, 199, 165, .12);
+  }
+}
 
 /* ===== SNS SECTION ===== */
 .s-sns { position: relative; height: 271px; overflow: hidden; }
