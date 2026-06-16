@@ -1,0 +1,277 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  position: relative;
+  width: 390px;
+  min-height: 1865px;
+  overflow: hidden;
+}
+
+/* Background image */
+.subpage-bg {
+  position: absolute;
+  height: 1777px;
+  left: 0;
+  top: 0;
+  width: 390px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bg-img {
+  position: absolute;
+  height: 239.13%;
+  left: -941.65%;
+  max-width: none;
+  top: -139.11%;
+  width: 1453.34%;
+}
+
+/* Green footer */
+.footer {
+  position: absolute;
+  background-color: #33AD8B;
+  height: 106px;
+  left: 0;
+  top: 1777px;
+  width: 390px;
+}
+
+/* Guide heading */
+.guide-heading {
+  position: absolute;
+  height: 86px;
+  left: 3px;
+  overflow: hidden;
+  top: 14px;
+  width: 390px;
+}
+
+.frag {
+  position: absolute;
+  height: 38px;
+  left: 10px;
+  top: 43px;
+  width: 28.644px;
+}
+.frag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.guide-title {
+  position: absolute;
+  font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #5C5C5C;
+  white-space: nowrap;
+  left: 47px;
+  top: 37px;
+  line-height: normal;
+}
+
+.menu-button {
+  position: absolute;
+  height: 50px;
+  left: 313px;
+  top: 0;
+  width: 51px;
+}
+.menu-button svg {
+  position: absolute;
+  display: block;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.menu-line {
+  position: absolute;
+  left: 8px;
+  width: 34px;
+  height: 1px;
+  background-color: #F8FAF7;
+}
+.menu-line1 { top: 12.5px; }
+.menu-line2 { top: 22px; }
+.menu-label {
+  position: absolute;
+  left: 50%;
+  top: 25px;
+  transform: translateX(-50%);
+  font-family: 'Arimo', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #F8FAF7;
+  white-space: nowrap;
+  text-align: center;
+  line-height: normal;
+}
+
+/* Steps container */
+.steps {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 99px;
+  left: calc(50% - 145px);
+  top: 170px;
+  width: 290px;
+}
+
+.step-wrapper {
+  position: relative;
+}
+
+.step-label {
+  position: absolute;
+  font-family: 'Arimo', 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #231916;
+  white-space: nowrap;
+  left: 0;
+  top: -50px;
+  line-height: normal;
+}
+
+/* Card */
+.card {
+  position: relative;
+  background-color: #F8FAF7;
+  height: 443px;
+  border-radius: 20px;
+  width: 100%;
+}
+
+/* Illustration box */
+.illus-box {
+  position: absolute;
+  height: 173px;
+  left: 43px;
+  border-radius: 20px;
+  top: 41px;
+  width: 207px;
+  border: 2px solid #5C5C5C;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.illus-box svg {
+  display: block;
+  flex-shrink: 0;
+}
+.illus-box--step1 {
+  padding: 41px 43px 27px 45px;
+}
+.illus-box--step1 svg {
+  width: 118.647px;
+  height: 105px;
+}
+.illus-box--step2 {
+  padding: 40px 58px 9px 65px;
+}
+.illus-box--step2 svg {
+  width: 84.114px;
+  height: 123.331px;
+}
+.illus-box--step3 {
+  padding: 22px 61px 0 44px;
+}
+.illus-box--step3 svg {
+  width: 102.237px;
+  height: 151.5px;
+}
+
+/* Text block */
+.text-block {
+  position: absolute;
+  left: 40px;
+  top: 230px;
+  width: 210px;
+}
+
+.step-title {
+  font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #42301D;
+  white-space: nowrap;
+  line-height: normal;
+  margin-left: 3px;
+}
+
+.underline {
+  height: 1px;
+  background-color: #E16B8C;
+  margin-top: 6px;
+  margin-left: 3px;
+}
+
+.step-desc {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #42301D;
+  line-height: normal;
+  margin-top: 8px;
+  word-break: break-word;
+}
+
+/* できた！button */
+.done-btn {
+  position: absolute;
+  background-color: #E16B8C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 168px;
+  padding-left: 5px;
+  border-radius: 20px;
+  top: 394px;
+  width: 113px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #F8FAF7;
+  white-space: nowrap;
+  line-height: normal;
+  transition: background-color 0.2s;
+}
+.done-btn.done {
+  background-color: #33AD8B;
+}
+
+/* Back button */
+.back-btn {
+  position: absolute;
+  background-color: #F8FAF7;
+  display: flex;
+  height: 27px;
+  align-items: center;
+  justify-content: center;
+  left: calc(50% + 34px);
+  border-radius: 20px;
+  top: 1838px;
+  width: 143px;
+  cursor: pointer;
+  font-family: 'Arimo', 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #42301D;
+  text-align: center;
+  white-space: nowrap;
+  line-height: normal;
+}
